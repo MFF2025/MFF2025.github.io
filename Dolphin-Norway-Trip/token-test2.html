@@ -1,0 +1,6 @@
+<!doctype html><meta charset="utf-8"><script>
+let GH_TOKEN=localStorage.getItem('dolphin-gh-token')||'';
+const m=location.hash.match(/(?:^|[#&])t=([^&]+)/);
+let received='';
+if(m){try{received=decodeURIComponent(m[1]);localStorage.setItem('dolphin-gh-token',received);GH_TOKEN=localStorage.getItem('dolphin-gh-token')}catch(e){}history.replaceState(null,'',location.pathname)}
+document.write(received&&GH_TOKEN===received?'TOKEN-OK':'TOKEN-FAIL')</script>
