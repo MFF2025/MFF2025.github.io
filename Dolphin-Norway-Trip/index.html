@@ -1,0 +1,276 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#b0c6b3"><meta name="description" content="2026 挪威旅行：每日行程、真实地图、酒店联系与打卡清单。"><title>挪威 · 秋日旅行手册</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%23123b49'/%3E%3Cpath d='M8 30V10l24 20V10' fill='none' stroke='white' stroke-width='4'/%3E%3C/svg%3E"><style>:root{--paper:#b0c6b3;--sheet:#f7f5ee;--sheet-2:#edefe4;--ink:#1a241e;--ink-2:rgba(26,36,30,.66);--ink-3:rgba(26,36,30,.42);--line:rgba(26,36,30,.16);--line-strong:rgba(26,36,30,.5);--accent:#db3356;--accent-soft:rgba(219,51,86,.09);--r:3px;--ease:cubic-bezier(.22,.61,.2,1);--spring:cubic-bezier(.75,-1.27,.3,2.33);--serif:'Songti SC','STSong','Noto Serif SC',Georgia,serif;--sans:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;--mono:ui-monospace,'SF Mono',Menlo,monospace}
+html{scroll-behavior:smooth;scroll-padding-top:128px;scrollbar-width:thin;scrollbar-color:rgba(26,36,30,.35) transparent}
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(26,36,30,.2);border-radius:8px;border:2px solid var(--paper)}
+::-webkit-scrollbar-thumb:hover{background:rgba(26,36,30,.4)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.8;-webkit-font-smoothing:antialiased}
+::selection{background:var(--accent);color:#fff}
+a{color:var(--ink);text-underline-offset:4px}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* ===== 顶栏：纸面毛玻璃 ===== */
+header{position:sticky;top:0;z-index:30;background:rgba(176,198,179,.8);backdrop-filter:saturate(1.3) blur(14px);-webkit-backdrop-filter:saturate(1.3) blur(14px);border-bottom:1px solid var(--line)}
+.top{max-width:1120px;margin:auto;height:58px;padding:0 24px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.top a{color:var(--ink);text-decoration:none}
+.brand{font-family:var(--serif);font-weight:700;font-size:17px;letter-spacing:2px}
+.brand em{font-style:normal;color:var(--accent)}
+.summary-link{white-space:nowrap;font-size:13px;letter-spacing:1px;color:var(--ink-2)}
+#top-count{font-family:var(--mono);font-weight:600;color:var(--accent);margin-left:2px}
+main{max-width:1120px;margin:auto;padding:0 24px}
+/* ===== 封面 ===== */
+.intro{display:grid;grid-template-columns:1.1fr .9fr;gap:44px;padding:64px 0 44px;align-items:end}
+h1{font-family:var(--serif);font-size:48px;font-weight:700;line-height:1.3;letter-spacing:3px;margin:14px 0 18px}
+h2{font-family:var(--serif);font-size:26px;line-height:1.4;margin:4px 0 16px}
+h3{font-size:14px;letter-spacing:3px;font-weight:650;color:var(--ink);margin:26px 0 12px;border-bottom:1px solid var(--line);padding-bottom:9px}
+p{margin:8px 0 14px}
+.eyebrow{font-size:12px;letter-spacing:3px;font-weight:600;color:var(--ink-2);margin:0;text-transform:uppercase}
+.meta{font-size:14px;color:var(--ink-2)}
+#photo img{width:100%;height:240px;object-fit:cover;border-radius:var(--r);border:1px solid var(--line-strong);display:block}
+body.js .intro [data-hero]{opacity:0;transform:translateY(26px);transition:opacity 1s var(--ease),transform 1s var(--ease);transition-delay:var(--d,0s)}
+body.js .intro.in [data-hero]{opacity:1;transform:none}
+/* ===== 公告条 ===== */
+.notice{background:var(--accent-soft);border:1px solid rgba(219,51,86,.28);padding:18px 22px;font-size:14px;border-radius:var(--r)}
+.notice p{margin:5px 0}
+.notice strong{font-family:var(--mono);font-size:12px;letter-spacing:2.5px;color:var(--accent);text-transform:uppercase;display:block;margin-bottom:4px}
+/* ===== 日期导航 ===== */
+#days-nav{position:sticky;top:58px;z-index:20;display:flex;overflow-x:auto;gap:8px;background:rgba(176,198,179,.85);backdrop-filter:saturate(1.3) blur(14px);-webkit-backdrop-filter:saturate(1.3) blur(14px);padding:12px 0;border-bottom:1px solid var(--line);scrollbar-width:none}
+#days-nav::-webkit-scrollbar{display:none}
+#days-nav a{flex:0 0 auto;text-decoration:none;background:var(--sheet);border:1px solid var(--line-strong);padding:7px 15px;border-radius:2px;font-size:13px;font-family:var(--mono);letter-spacing:.5px;transition:background .35s var(--ease),color .35s var(--ease),border-color .35s var(--ease)}
+#days-nav a:hover{border-color:var(--ink)}
+#days-nav a.active{background:var(--ink);color:var(--sheet);border-color:var(--ink)}
+/* ===== 每日手账页 ===== */
+.day{margin:36px 0;background:var(--sheet);border:1px solid var(--line-strong);border-radius:var(--r);overflow:hidden;position:relative;counter-increment:day;scroll-margin-top:126px}
+body{counter-reset:day}
+@media(min-width:1000px){.day::before{content:'';position:absolute;left:14px;top:86px;bottom:28px;width:9px;background-image:radial-gradient(circle 4.2px,rgba(26,36,30,.14) 4.2px,transparent 5px);background-size:9px 58px;background-repeat:repeat-y;pointer-events:none}}
+.day-head{display:flex;align-items:center;gap:24px;padding:28px 28px 22px;border-bottom:1px solid var(--line)}
+.date-box{flex-shrink:0;text-align:center;border:1px solid var(--line-strong);border-radius:var(--r);padding:10px 16px;background:var(--sheet-2)}
+.date-box strong{display:block;font-family:var(--mono);font-size:26px;font-weight:600;line-height:1.15;letter-spacing:-.5px}
+.date-box small{font-size:11px;letter-spacing:2.5px;color:var(--ink-2)}
+.day-head h2{margin:0;font-size:25px;letter-spacing:1px}
+.day-head h2::before{content:'DAY 'counter(day,decimal-leading-zero);display:block;font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:3px;color:var(--accent);margin-bottom:6px}
+.subtitle{font-size:13px;letter-spacing:1px;color:var(--ink-2);margin:5px 0 0}
+.day-body{padding:0 28px 28px}
+@media(min-width:1000px){.day-body{padding-left:44px}}
+.columns{display:grid;grid-template-columns:1.08fr 1fr;gap:40px}
+/* 行程时间轴 */
+.timeline{list-style:none;padding:0;margin:0}
+.timeline li{display:grid;grid-template-columns:112px 1fr;gap:14px;padding:12px 2px;border-bottom:1px solid var(--line);transition:background .3s var(--ease)}
+.timeline li:hover{background:rgba(26,36,30,.035)}
+.timeline li:last-child{border-bottom:0}
+.timeline time{font-family:var(--mono);font-size:12.5px;font-weight:600;line-height:2.05;letter-spacing:.3px;color:var(--ink-2)}
+.timeline p{margin:0;font-size:15px}
+.flight time{color:var(--accent)}
+/* 打卡清单 */
+.check-row{margin:8px 0;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:transparent;transition:border-color .3s var(--ease)}
+.check-row:hover{border-color:var(--line-strong)}
+.check{display:flex;align-items:flex-start;gap:12px;padding:12px 12px;margin:0;cursor:pointer;min-height:48px}
+.check input{appearance:none;-webkit-appearance:none;width:19px;height:19px;border:1.5px solid var(--line-strong);border-radius:2px;background:transparent;flex-shrink:0;margin:4px 0 0;position:relative;cursor:pointer;transition:background .25s var(--ease),border-color .25s var(--ease)}
+.check input::after{content:'';position:absolute;left:5.5px;top:1.5px;width:4.5px;height:10px;border-right:2px solid var(--sheet);border-bottom:2px solid var(--sheet);transform:rotate(45deg) scale(0);transition:transform .3s var(--spring)}
+.check input:checked{background:var(--accent);border-color:var(--accent)}
+.check input:checked::after{transform:rotate(45deg) scale(1)}
+.label-text{font-size:15px;background:linear-gradient(var(--ink-3),var(--ink-3)) no-repeat 0 58%/0% 1.5px;transition:background-size .5s var(--ease),color .5s var(--ease)}
+.check-row.is-done .label-text{background-size:100% 1.5px;color:var(--ink-3)}
+.check-row.is-done{background:var(--sheet-2)}
+.check-row.is-done .check input{background:var(--ink-3);border-color:var(--ink-3)}
+.check-row.is-done .check input::after{transform:rotate(45deg) scale(1)}
+.item-actions{display:flex;justify-content:flex-end;gap:6px;padding:0 10px 8px;opacity:0;transform:translateY(-3px);transition:opacity .3s var(--ease),transform .3s var(--ease)}
+.check-row:hover .item-actions,.check-row:focus-within .item-actions{opacity:1;transform:none}
+.item-actions button{font-size:12px;letter-spacing:1.5px;min-height:32px;padding:0 12px;color:var(--ink-2);background:transparent;border:1px solid transparent;border-radius:2px;transition:color .3s,border-color .3s,background .3s}
+.item-actions button:hover{color:var(--ink);border-color:var(--line-strong)}
+@media(hover:none){.item-actions{opacity:1;transform:none}}
+.add-item{width:100%;border:1px dashed var(--line-strong);background:transparent;color:var(--ink);border-radius:var(--r);padding:12px;min-height:48px;margin-top:10px;letter-spacing:2px;font-size:14px;transition:border-color .3s var(--ease),background .3s var(--ease),letter-spacing .4s var(--ease)}
+.add-item:hover{border-style:solid;border-color:var(--ink);background:var(--sheet-2);letter-spacing:3.5px}
+.section-title{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.day-count{font-family:var(--mono);font-size:12px;color:var(--accent);font-weight:600;letter-spacing:1px}
+.empty{color:var(--ink-3);padding:12px 2px;font-size:14px}
+/* 酒店 */
+.hotel{background:var(--sheet-2);border:1px solid var(--line-strong);padding:20px 22px;margin-top:26px;border-radius:var(--r)}
+.hotel h3{font-family:var(--serif);font-size:19px;letter-spacing:1px;border-bottom:0;padding-bottom:0;margin:0 0 8px}
+.hotel p{margin:5px 0;font-size:14px;color:var(--ink-2)}
+.hotel p strong{color:var(--ink)}
+/* 建议 */
+.advice{margin-top:24px}
+.advice p{margin:10px 0;font-size:15px}
+.advice strong{color:var(--ink);font-family:var(--mono);font-size:13px;letter-spacing:1px}
+/* 链接按钮：悬停填色反转 */
+.links{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.links a,.route{display:inline-block;padding:9px 16px;border:1px solid var(--line-strong);border-radius:2px;background:transparent;text-decoration:none;font-size:13px;letter-spacing:1px;transition:background .35s var(--ease),color .35s var(--ease),border-color .35s var(--ease)}
+.links a:hover{background:var(--ink);color:var(--sheet);border-color:var(--ink)}
+/* 地图面板：丝滑展开 */
+details.map-panel{margin-top:22px;border:1px solid var(--line-strong);border-radius:var(--r);interpolate-size:allow-keywords;background:transparent}
+details.map-panel summary{cursor:pointer;list-style:none;position:relative;padding:14px 44px 14px 18px;font-weight:600;font-size:14px;letter-spacing:2px;min-height:50px;transition:color .3s var(--ease),background .3s var(--ease)}
+details.map-panel summary::-webkit-details-marker{display:none}
+details.map-panel summary::after{content:'';position:absolute;right:19px;top:50%;width:8px;height:8px;border-right:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);transform:translateY(-72%) rotate(45deg);transition:transform .45s var(--ease),border-color .3s}
+details.map-panel summary:hover{color:var(--accent);background:var(--accent-soft)}
+details.map-panel summary:hover::after{border-color:var(--accent)}
+details[open].map-panel summary{color:var(--accent)}
+details[open].map-panel summary::after{transform:translateY(-28%) rotate(-135deg);border-color:var(--accent)}
+.map-inner{padding:2px 18px 18px;height:0;overflow:hidden;transition:height .55s var(--ease)}
+details[open].map-panel .map-inner{height:auto}
+.map-inner select{width:100%;min-height:46px;border:1px solid var(--line-strong);border-radius:2px;background:var(--sheet);padding:8px 12px;color:var(--ink);margin-bottom:12px}
+iframe{border:0;display:block;width:100%;height:280px;background:var(--sheet-2)}
+.map-canvas{width:100%;height:280px;background:var(--sheet-2);border:1px solid var(--line-strong);border-radius:2px;position:relative;z-index:0}
+.map-note{font-size:13px;color:var(--ink-2)}
+/* 汇总 */
+.summary{margin:52px 0 24px;padding:28px;background:var(--sheet);border:1px solid var(--line-strong);border-radius:var(--r);scroll-margin-top:126px}
+.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.summary .check{font-size:15px}
+.progress-line{display:flex;align-items:center;gap:20px;margin:22px 0}
+progress{width:100%;height:8px;accent-color:var(--accent)}
+/* 对话框 */
+dialog{width:min(440px,calc(100% - 32px));padding:26px;border:1px solid var(--line-strong);border-radius:var(--r);background:var(--sheet);color:var(--ink)}
+dialog::backdrop{background:rgba(20,29,24,.5);backdrop-filter:blur(3px)}
+dialog h2{font-family:var(--serif);font-size:22px}
+dialog label{display:block;margin-bottom:8px;font-size:13px;letter-spacing:2px}
+dialog input{width:100%;min-height:48px;border:1px solid var(--line-strong);border-radius:2px;background:#fff;padding:10px 12px;font-size:16px}
+dialog input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.dialog-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:20px}
+.dialog-actions button{border:1px solid var(--line-strong);border-radius:2px;padding:10px 22px;min-height:46px;background:transparent;color:var(--ink);letter-spacing:1.5px;font-size:14px;transition:background .35s var(--ease),color .35s var(--ease)}
+.dialog-actions button:hover{background:var(--ink);color:var(--sheet)}
+.dialog-actions .primary{background:var(--ink);color:var(--sheet);border-color:var(--ink)}
+.dialog-actions .primary:hover{background:var(--accent);border-color:var(--accent)}
+#edit-error{color:var(--accent);font-size:14px}
+#storage-note{padding:20px 0;border-bottom:1px solid var(--line);font-size:13px;color:var(--ink-2);text-align:center;letter-spacing:1px}
+/* 页脚 */
+footer{padding:12px 0 50px;color:var(--ink-2);font-size:13.5px}
+footer h3{border-bottom:0;color:var(--ink)}
+/* 自定义光标 */
+body.has-cursor,body.has-cursor a,body.has-cursor button,body.has-cursor summary,body.has-cursor select,body.has-cursor label.check{cursor:none}
+body.has-cursor input,body.has-cursor textarea{cursor:text}
+#cur-dot,#cur-ring{position:fixed;left:0;top:0;pointer-events:none;border-radius:50%;z-index:1000;will-change:transform;opacity:0;transition:opacity .4s var(--ease)}
+#cur-dot.on,#cur-ring.on{opacity:1}
+#cur-dot{width:7px;height:7px;background:var(--ink)}
+#cur-ring{width:32px;height:32px;border:1px solid var(--ink-3);transition:border-color .3s}
+/* 滚动渐显 */
+body.js .rv{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:var(--d,0ms)}
+body.js .rv.in{opacity:1;transform:none}
+/* 应急卡片 */
+.sos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:6px 0 22px}
+.sos-card{border:1px solid var(--line-strong);border-radius:var(--r);padding:12px 14px;background:var(--sheet);transition:background .35s var(--ease),color .35s var(--ease)}
+.sos-card:hover{background:var(--ink);color:var(--sheet)}
+.sos-card strong{display:block;font-family:var(--mono);font-size:19px;letter-spacing:1px;color:var(--accent);margin-bottom:2px}
+.sos-card:hover strong{color:var(--sheet)}
+.sos-card span{font-size:12.5px;letter-spacing:1px}
+.embassy{border:1px solid var(--line-strong);border-radius:var(--r);padding:16px 20px;background:var(--sheet);margin-bottom:16px}
+.embassy p{margin:4px 0;font-size:14px}
+.tips p{font-size:14px;color:var(--ink-2)}
+.tips strong{color:var(--ink);font-family:var(--mono);font-size:12.5px;letter-spacing:1.5px;margin-right:10px}
+.source-note{font-size:12.5px;color:var(--ink-3);margin-top:16px}
+/* 文件中心 */
+#file-dialog{width:min(660px,calc(100% - 32px))}
+.fd-sub{font-size:13px;color:var(--ink-2);margin:-4px 0 0}
+#user-chips{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 4px}
+#user-chips button{border:1px solid var(--line-strong);background:transparent;border-radius:2px;padding:8px 16px;font-size:14px;letter-spacing:1px;font-family:var(--mono);transition:background .35s var(--ease),color .35s var(--ease)}
+#user-chips button:hover{background:var(--ink);color:var(--sheet)}
+#login-error{color:var(--accent);font-size:13px;min-height:18px;margin:6px 0 0}
+.fd-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:14px}
+.fd-head h2{margin:0}
+.fd-user{font-family:var(--mono);font-size:13px;color:var(--accent);margin:4px 0 0}
+.fd-head-ops{display:flex;gap:8px}
+.fd-switch,.fd-x{border:1px solid var(--line-strong);background:transparent;border-radius:2px;padding:6px 12px;font-size:12px;letter-spacing:1px;transition:background .35s var(--ease),color .35s var(--ease)}
+.fd-switch:hover,.fd-x:hover{background:var(--ink);color:var(--sheet)}
+.fd-drop{display:block;border:1px dashed var(--line-strong);border-radius:var(--r);padding:22px 16px;text-align:center;cursor:pointer;letter-spacing:2px;font-size:14px;margin-bottom:14px;transition:border-color .3s var(--ease),background .3s var(--ease)}
+.fd-drop small{display:block;margin-top:4px;font-size:12px;color:var(--ink-2);letter-spacing:.5px}
+.fd-drop:hover{border-style:solid;background:var(--sheet-2)}
+.fd-drop.over{border-color:var(--accent);background:var(--accent-soft)}
+#file-list{list-style:none;margin:0;padding:0;max-height:300px;overflow-y:auto}
+.fd-item{display:grid;grid-template-columns:1fr auto;gap:2px 12px;border:1px solid var(--line);border-radius:var(--r);padding:10px 14px;margin-bottom:8px;align-items:center}
+.fd-name{font-size:14.5px;font-weight:600;word-break:break-all}
+.fd-meta{font-family:var(--mono);font-size:11.5px;color:var(--ink-2)}
+.fd-meta em{font-style:normal;color:var(--accent)}
+.fd-ops{display:flex;gap:6px;grid-row:span 2;flex-wrap:wrap;justify-content:flex-end}
+.fd-ops button{font-size:12px;letter-spacing:1px;border:1px solid var(--line-strong);background:transparent;border-radius:2px;padding:5px 10px;min-height:32px;transition:background .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease)}
+.fd-ops button:hover{background:var(--ink);color:var(--sheet)}
+.fd-ops .fd-del:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+.fd-rename{width:100%;min-height:36px;border:1px solid var(--line-strong);background:#fff;padding:4px 8px;font-size:14px}
+.fd-preview{margin-top:12px;border:1px solid var(--line);border-radius:var(--r);padding:12px;max-height:320px;overflow:auto;background:var(--sheet-2)}
+.fd-preview img{max-width:100%;display:block}
+.fd-preview pre{white-space:pre-wrap;font-size:13px;margin:0;font-family:var(--mono)}
+.fd-preview iframe{width:100%;height:300px;border:0;background:#fff}
+@media(max-width:700px){.fd-ops{grid-row:auto}.fd-item{grid-template-columns:1fr}}@media(max-width:900px){.intro{grid-template-columns:1fr;gap:20px;padding:44px 0 32px}.columns{grid-template-columns:1fr;gap:0}}
+@media(max-width:700px){main{padding:0 16px}.top{padding:0 16px}h1{font-size:34px;letter-spacing:2px}#photo img{height:160px}.day-head{padding:20px 16px;gap:14px;align-items:flex-start}.day-head h2{font-size:21px}.date-box{padding:8px 12px}.date-box strong{font-size:22px}.day-body{padding:0 16px 22px}.timeline li{grid-template-columns:92px 1fr;gap:8px}.timeline time{font-size:11.5px}.links a{padding:9px 12px}.day{margin:26px 0}.hotel{padding:16px}.map-canvas{height:240px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}body.js .rv,body.js .intro [data-hero]{opacity:1;transform:none;transition:none}.map-inner{transition:none}}
+@media print{body{background:#fff}.map-canvas,#days-nav,iframe{display:none!important}.day{break-inside:avoid;border-color:#999}}
+</style></head><body><header><div class="top"><a class="brand" href="#" id="brand-open" title="点击 N 打开文件中心"><em>N·</em>挪威旅行手册</a><span class="summary-link">已打卡 <span id="top-count">0</span></span></div></header><main><section class="intro"><div><p class="eyebrow">26 SEP — 06 OCT 2026 · NORWAY</p><h1>挪威，逐日旅行手册</h1><p>奥斯陆 · 斯塔万格 · 卑尔根 · 罗弗敦</p><p class="meta">境内 11 天 10 晚 · 含 9/25 出发与 10/7 返抵</p></div><div id="photo"></div></section><div class="notice"><strong>出发前核对</strong><p>9/27 从 Torp / TRF 起飞；9/29 为 14:20—15:00；10/5 为 17:15—19:00。暂按机票 PDF 编排，若收到航变请以航空公司最新通知为准。</p><p>航班及酒店时间为订单记录；其余时间为建议。均为当地时间，挪威比中国慢 6 小时。</p></div><nav id="days-nav" aria-label="按日期跳转"></nav><div id="days"></div><p id="storage-note" role="status">清单及打卡状态保存在当前浏览器，不跨设备同步。</p><dialog id="file-dialog"><div id="login-view"><h2>文件中心</h2><p class="fd-sub">输入用户名进入（无需密码），用于上传与查看行程单等文件</p><div id="user-chips"></div><form id="login-form"><input id="login-name" placeholder="用户名" autocomplete="off" required><p id="login-error" role="alert"></p><div class="dialog-actions"><button type="button" class="fd-x" data-close>关闭</button><button type="submit" class="primary">进入</button></div></form></div><div id="files-view" hidden><div class="fd-head"><div><h2>文件中心</h2><p class="fd-user" id="fd-user-line"></p></div><div class="fd-head-ops"><button type="button" class="fd-switch" id="fd-switch">切换用户</button><button type="button" class="fd-x" data-close>关闭</button></div></div><label class="fd-drop" id="fd-drop"><input type="file" id="file-input" multiple hidden>点击选择或拖入文件上传<br><small>PDF · 图片 · 文档均可，保存在当前浏览器</small></label><ul id="file-list"></ul><div class="fd-preview" id="fd-preview" hidden></div></div></dialog><dialog id="item-dialog"><form id="item-form"><h2 id="dialog-title">添加打卡</h2><label for="item-text">打卡内容</label><input id="item-text" maxlength="180" required autocomplete="off"><p id="edit-error" role="alert"></p><div class="dialog-actions"><button type="button" id="cancel-edit">取消</button><button type="submit" class="primary">保存</button></div></form></dialog><footer><h3>应急与领事保护</h3><div class="sos-grid"><div class="sos-card"><strong>112</strong><span>报警 · 救援协调</span></div><div class="sos-card"><strong>113</strong><span>医疗急救</span></div><div class="sos-card"><strong>110</strong><span>火警</span></div><div class="sos-card"><strong>120</strong><span>海上救援</span></div><div class="sos-card"><strong>116117</strong><span>非工作时间门诊</span></div><div class="sos-card"><strong>+86-10-12308</strong><span>外交部全球领保</span></div></div><div class="embassy"><p><strong>中国驻挪威大使馆</strong></p><p>领事保护（紧急）：+47 93066621 ｜ 领事咨询：+47 94069628（工作日 9:30—11:30、14:30—16:30）｜ 总机：+47 22492052</p><p>领事部：Inkognitogata 11, 0258 Oslo（证件大厅工作日 9:00—11:30）｜ 领事邮箱：oslo@csm.mfa.gov.cn</p></div><div class="tips"><p><strong>电话区号</strong>挪威国家区号 +47，国内不分城市区号，本地号码即完整 8 位数字，从中国拨打为 00-47-XXXX XXXX；紧急电话免费，无 SIM 卡余额也可拨通。</p><p><strong>漫游权与户外</strong>野外露营须距民居 150 米以上、同一地点帐篷至多连住 2 晚，禁入围栏农田与私人地块；罗弗敦的鳕鱼晾晒架与渔棚多为私人设施，勿攀爬穿行；峡湾山脊常无护栏，勿为拍照翻越；许多小镇禁飞无人机。</p><p><strong>日常禁忌</strong>周日与节假日多数商店关门，需提前备餐；超市 20:00（周末 18:00）后停售酒类，烈酒仅在 Vinmonopolet 国营酒局出售；街道、公园等公共场所禁止饮酒；餐厅小费非惯例，可依服务酌给。</p></div><div class="links"><a href="https://no.china-embassy.gov.cn/lsfw_0/lsbh_134118/" target="_blank" rel="noopener">使馆领事保护页</a><a href="https://www.yr.no/en" target="_blank" rel="noopener">Yr 天气</a><a href="https://www.vegvesen.no/trafikk" target="_blank" rel="noopener">实时路况</a><a href="https://www.vy.no/en" target="_blank" rel="noopener">Vy 列车</a><a href="https://www.skyss.no/en" target="_blank" rel="noopener">卑尔根交通</a><a href="https://visitlofoten.com/en/guide/reinebringen-hike/" target="_blank" rel="noopener">Reinebringen 官方指引</a></div><p class="source-note">以上信息核对日期 2026-09-19，均来自公开官方来源；出行前请再次确认。</p><p id="photo-credit"></p></footer></main><script>const HOTELS={
+ oslo:{name:'Hotell Bondeheimen',address:'Kristian IVs gate 2, Oslo',phone:'+4723214100',email:'booking@bondeheimen.com',web:'https://www.bondeheimen.no/en',stay:'9/26—9/27 · 1 晚',time:'15:00 后入住 · 次日 12:00 前退房',meal:'含 9/27 四人早餐',room:'家庭房：大床＋沙发床。早到先寄存行李，提前入住待酒店确认。'},
+ base:{name:'Preikestolen Hotel & BaseCamp',address:'Preikestolvegen 521, Strand',phone:'+4751742074',email:'booking@preikestolenbasecamp.com',web:'https://preikestolenbasecamp.com/en/',stay:'9/27—9/28 · 1 晚',time:'16:00—23:00 入住 · 次日 10:30 前退房',meal:'含 9/28 四人早餐',room:'四人独立卫浴房。官网客服电话见下方；订单另列 +47 95231260。订单未注明厨房，做饭条件须直接确认；准备餐厅或即食晚餐备选。'},
+ stavanger:{name:'Home Hotel Skagen Brygge',address:'Skagenkaien 30, Stavanger',phone:'+4751850000',email:'home.skagenbrygge@strawberry.no',web:'https://www.strawberryhotels.com/hotels/norway/stavanger/home-hotel-skagen-brygge/',stay:'9/28—9/29 · 1 晚',time:'15:00 后入住 · 次日 11:00 前退房',meal:'含 9/28 四人晚餐＋9/29 四人早餐',room:'套房：双人床＋两张单人床。先确认晚餐时间，再安排日落。'},
+ bergen:{name:'Citybox Bergen Danmarksplass',address:'Solheimsgaten 23D, Bergen',phone:'+4797312266',email:'danmarksplass@cityboxhotels.com',web:'https://cityboxhotels.com/hotels/bergen/danmarksplass',stay:'9/29—10/1 · 2 晚',time:'15:00 后入住 · 10/1 12:00 前退房',meal:'不含餐',room:'家庭房：双人床＋上下铺。公共厨房官网列有微波炉、烤面包机、热水壶，按简餐准备。'},
+ nyvagar:{name:'Nyvågar Rorbuhotell',address:'Storvåganveien 26, Kabelvåg',phone:'+4776069700',email:'booking@nyvagar.no',web:'https://nyvagar.no/en/',stay:'10/1—10/2 · 1 晚',time:'15:00 后入住 · 次日 11:00 前退房',meal:'不含餐',room:'海向两卧室木屋；官网介绍设小厨房。预计晚到，提前确认钥匙与接待方式。'},
+ hennings:{name:'Henningsvær Rorbuer',address:'Banhammaren 53, Henningsvær',phone:'+4776066000',email:'info@henningsvar-rorbuer.com',web:'https://www.henningsvar-rorbuer.no/',stay:'10/2—10/3 · 1 晚',time:'16:00 后入住 · 次日 11:00 前退房',meal:'不含餐',room:'一卧室＋开放阁楼标准渔屋；提前确认床位、阁楼楼梯与本房型厨房设备。'},
+ eliassen:{name:'Eliassen Rorbuer',address:'Hamnøya 66, Hamnøy',phone:'+4745814845',email:'booking@rorbuer.no',web:'https://rorbuer.no/',stay:'10/3—10/5 · 2 晚',time:'15:00 后入住 · 10/5 11:00 前退房',meal:'不含餐',room:'传统两卧室木屋；凭证列两间卧室均为上下铺，未承诺临水第一排。具体厨房与房屋位置向酒店确认。'},
+ airport:{name:'Best Western Plus Oslo Airport',address:'Ravinevegen 11, Gardermoen',phone:'+4763940800',email:'booking@bwosloairport.com',web:'https://bwosloairport.com/',stay:'10/5—10/6 · 1 晚',time:'15:00 后入住 · 次日 12:00 前退房',meal:'含 10/6 共四份早餐',room:'两间双床房。酒店需地面接驳，出发前确认班次、站点和费用。'}
+};
+const DAYS=[
+{id:'0925',date:'9.25',week:'周五',title:'出发，去往北方',sub:'上海 → 北京 · 国内中转',hotel:null,route:['Shanghai Hongqiao Airport','Beijing Capital Airport'],mode:'transit',points:[['上海虹桥机场',31.1979,121.3363],['北京首都机场',40.0799,116.6031]],plan:[['16:00','建议抵达虹桥 T2，办理值机与托运。'],['19:00—21:15','HU7608 · 上海虹桥 T2 → 北京首都 T2','flight'],['21:15 后','提取行李，办理跨日国际转机。']],checks:['确认护照、机票与四位同行人的行李额度','北京提取行李并重新托运'],tips:[['跨日航班','下一段为 9/26 凌晨 03:10。PDF 标注北京中转行李不直挂，柜台核实实际流程。'],['租车文件','两段租车订单尚未提供；出发前核实驾照及翻译要求、驾驶员信用卡、保险、额外司机与四人行李空间。']]},
+{id:'0926',date:'9.26',week:'周六',title:'奥斯陆，咖啡与海港',sub:'抵达首都 · 城市漫步',hotel:'oslo',route:['Hotell Bondeheimen Oslo','Fuglen Oslo','Oslo Opera House','MUNCH Oslo','Fiskeriet Youngstorget'],mode:'walking',points:[['奥斯陆市中心',59.9139,10.7522],['歌剧院与蒙克美术馆',59.9069,10.7535],['Akershus 要塞',59.9075,10.736],['OSL 机场',60.1939,11.1004]],plan:[['03:10—06:45','HU769 · 北京首都 T2 → 奥斯陆 OSL','flight'],['09:00—10:00','建议抵达酒店寄存行李；Vy 列车到 Oslo S 后步行。'],['10:00—12:00','Fuglen 咖啡、W.B. Samson 肉桂卷，再去歌剧院。'],['13:00—15:00','蒙克美术馆；之后回酒店入住、休息。'],['16:30 后','卡尔约翰大街；Fiskeriet Youngstorget 晚餐。码头和要塞视体力安排。']],checks:['Fuglen 咖啡','W.B. Samson 肉桂卷','奥斯陆歌剧院','蒙克美术馆','卡尔约翰大街','Fiskeriet Youngstorget 晚餐','Aker Brygge 码头（可选）','Akershus 要塞外观（可选）'],tips:[['抵达与住宿','06:45 是落地时间，需另留入境和取行李时间。15:00 起可正式入住，早到先寄存。'],['值得看','歌剧院与 MUNCH 同在滨水片区，适合一起游览；要塞暂按 Akershus 理解，晚间以外观为主。'],['体力与采购','首日经历夜航，下午安排休息。9/27 周日多数商店关闭，今天买好徒步午餐、零食与常温食品。']]},
+{id:'0927',date:'9.27',week:'周日',title:'转向峡湾，住到山脚',sub:'奥斯陆 → Torp → 斯塔万格 → 布道石',hotel:'base',route:['Stavanger Airport','Preikestolen BaseCamp'],mode:'driving',points:[['Torp / TRF 机场',59.1867,10.2586],['斯塔万格机场',58.8767,5.6378],['布道石 BaseCamp',58.9918,6.138]],plan:[['08:00—09:30','酒店早餐，退房，只在附近短暂散步。'],['10:00 左右','出发前往 Torp/TRF；铁路到 Torp 站后接驳至航站楼。'],['13:00 左右','目标抵达 TRF 航站楼，办理托运与安检。'],['15:15—16:05','WF444 · Torp/TRF → 斯塔万格 SVG','flight'],['17:00—19:00','取车后开往 BaseCamp；约留 1—1.5 小时驾驶。']],checks:['确认出发机场为 TRF 并乘车到达','取车拍摄车身、轮胎与油量','入住布道石山脚酒店','确认次日天气、早餐和退房后停车'],tips:[['最重要的机场提醒','TRF 位于奥斯陆西南方向，与 9/26 抵达的 OSL 不同。地面交通预留约 2—2.5 小时，按当日班次倒推出门时间。'],['晚餐','四人房未确认有厨房，先询问酒店；不要依赖周日晚间到超市采购。'],['路线','取车后按导航经公路与隧道前往山脚；核实租车通行费代扣和还车规则。']]},
+{id:'0928',date:'9.28',week:'周一',title:'布道石，俯瞰吕瑟峡湾',sub:'山脚徒步 → 斯塔万格港湾',hotel:'stavanger',route:['Preikestolen BaseCamp','Home Hotel Skagen Brygge'],mode:'driving',points:[['布道石徒步起点',58.9918,6.138],['布道石观景台',58.9864,6.1904],['斯塔万格港湾',58.971,5.729],['Solastranden 候选日落点',58.8858,5.6034]],plan:[['07:00—08:30','早餐、退房并寄存或装好行李；确认停车安排。'],['08:30—14:30','布道石徒步，按 5—6 小时含拍照和休息规划。'],['15:30—16:30','开回斯塔万格市区，入住休息。'],['傍晚','酒店晚餐；港湾散步或按体力去海边看日落。']],checks:['布道石徒步（天气允许）','吕瑟峡湾观景','斯塔万格港湾或老城散步','酒店晚餐','Solastranden 日落（可选）'],tips:[['徒步准备','往返约 8 公里、累计爬升约 500 米。穿防滑登山鞋，带防水外层、保暖层、饮水、午餐与头灯。'],['路况优先','出发前问 BaseCamp 山上风雨和能见度。大风、结冰或明显不适时折返；崖顶远离边缘。'],['日落候选','你原先的日落地点未明确，Solastranden 仅为候选，需要额外驾驶；先确认酒店晚餐时段。']]},
+{id:'0929',date:'9.29',week:'周二',title:'抵达卑尔根',sub:'还车 · 短途飞行 · 轻轨进城',hotel:'bergen',route:['Bergen Airport','Citybox Bergen Danmarksplass'],mode:'transit',points:[['斯塔万格机场',58.8767,5.6378],['卑尔根机场',60.2934,5.2181],['Danmarksplass 酒店片区',60.374,5.338]],plan:[['08:00—10:30','早餐、附近散步、整理行李。'],['10:30—12:20','退房，前往机场加油还车，目标 12:20 左右进入航站楼。'],['14:20—15:00','SK4172 · 斯塔万格 SVG → 卑尔根 BGO','flight'],['16:30—17:00','轻轨 1 号线至 Danmarksplass，下车步行入住。'],['晚上','周边走走，采购早餐和可微波加热的简餐。']],checks:['机场还车并留存交车凭据','乘卑尔根轻轨 1 号线','入住 Citybox Danmarksplass','备好简餐与次日早餐'],tips:[['航班待确认差异','PDF 为 14:20—15:00，手写计划为 14:25—15:05；暂以 PDF 编排。'],['别去错酒店','导航带上完整的 Danmarksplass，酒店位于市中心南侧。'],['厨房','官网列有微波炉、烤面包机和热水壶；做微波简餐，不预设有炒菜炉灶。']]},
+{id:'0930',date:'9.30',week:'周三',title:'卑尔根，彩色木屋的一天',sub:'港湾 · 热巧 · 鱼汤 · 城市慢逛',hotel:'bergen',route:['Fisketorget Bergen','Bryggen Bergen','Trekroneren Bergen'],mode:'walking',points:[['Fisketorget 鱼市场',60.3955,5.3258],['Bryggen 布吕根',60.3977,5.3245],['Fløyen 山顶（可选）',60.3948,5.3448]],plan:[['09:00 左右','乘轻轨进城，沿鱼市场与布吕根游览。'],['上午','拍彩色木屋，走入后方窄巷与院落。'],['中午—下午','热狗、热巧克力，鱼饼或鱼汤；晴天可加 Fløyen。'],['17:00—18:00','超市采购耐储存食品，回酒店整理次日行李。']],checks:['Fisketorget 鱼市场','Bryggen 彩色木屋与后巷','Trekroneren 鹿肉热狗（看当天菜单）','Fjåk 热巧克力','Søstrene Hagelin 或 Bjerck 鱼饼鱼汤','Fløyen 俯瞰城市（可选）','采购罗弗敦路餐'],tips:[['值得看','布吕根除了正面木屋，还有窄巷、内部院落与木结构细节，留出慢慢走的时间。'],['吃饭','两家鱼类餐厅可二选一，查看当天菜单、营业时间和计价单位。'],['补给','带去北部的食物以面包、燕麦、坚果和能量棒为主；鲜肉与奶制品到当地再买。']]},
+{id:'1001',date:'10.1',week:'周四',title:'飞向罗弗敦',sub:'卑尔根 → 奥斯陆中转 → EVE → Nyvågar',hotel:'nyvagar',route:['Harstad Narvik Airport','Nyvagar Rorbuhotell'],mode:'driving',points:[['埃沃内斯 EVE 机场',68.4913,16.6781],['Svolvær',68.2343,14.5683],['Nyvågar / Storvågan',68.2095,14.447]],plan:[['09:15—10:30','退房前往机场，目标 10:30 到 BGO。'],['12:55—13:45','SK262 · 卑尔根 BGO → 奥斯陆 OSL','flight'],['15:00—16:40','SK4094 · OSL → 埃沃内斯 EVE','flight'],['17:30—18:00','目标完成取车；提前准备晚餐或补给。'],['20:30—21:30','预计抵达 Nyvågar，入住吃饭；按天气就近看极光。']],checks:['奥斯陆完成转机，确认行李直挂 EVE','EVE 机场取车并检查车辆','安全抵达 Nyvågar','住宿附近首次观察极光（可选）'],tips:[['中转','两段之间 1 小时 15 分钟，落地后直接去下一登机口。订单标注行李直挂，BGO 柜台确认行李条目的地为 EVE。'],['驾驶与晚到','机场到酒店按约 3 小时驾驶另加停留时间规划。提前联系晚到取钥匙；这晚优先住宿与休息，Kabelvåg 放到次日上午。'],['极光','晴空、黑夜和太阳活动共同决定可见性。到店后只在熟悉且安全的附近观察，不为追光疲劳驾驶。']]},
+{id:'1002',date:'10.2',week:'周五',title:'把一天交给海上小镇',sub:'Kabelvåg → Henningsvær',hotel:'hennings',route:['Nyvagar Rorbuhotell','Vagan Church','Henningsvaer Rorbuer'],mode:'driving',points:[['Kabelvåg',68.2107,14.4755],['Vågan Church',68.2154,14.4828],['Henningsvær 港口',68.154,14.2068],['Henningsvær 足球场',68.1467,14.2009]],plan:[['08:00—10:30','自备早餐，海边散步、Kabelvåg 小镇与 Vågan Church 外观。'],['11:00 前','退房，前往 Henningsvær；驾驶约留 40—60 分钟。'],['中午—下午','港口、街巷、木屋、画廊、咖啡馆与足球场。'],['16:00 后','入住渔屋，准备晚餐。'],['20:30—23:00','按云量与精神状态，就近观察极光。']],checks:['Kabelvåg 小镇与海边','Vågan Church 外观','Henningsvær 港口与木屋','小镇咖啡馆','Henningsvær 足球场','Henningsvær 极光观察（可选）'],tips:[['慢逛顺序','港口 → 街巷 → 木屋 → 海边 → 咖啡馆 → 足球场。把车停好后步行，观察桥梁、岩岛和房屋相连的空间。'],['照片与实际视角','足球场经典全景多为高视角；不要为相同构图攀爬湿滑岩石。'],['住宿与夜间','房型是一卧室加开放阁楼，确认楼梯和床位。夜间优先去白天已熟悉的合法停车点。']]},
+{id:'1003',date:'10.3',week:'周六',title:'沿 E10，驶向红色渔屋',sub:'Henningsvær → Leknes → Nusfjord → Hamnøy',hotel:'eliassen',route:['Henningsvaer Rorbuer','Leknes','Nusfjord','Eliassen Rorbuer'],mode:'driving',points:[['Leknes 补给',68.1475,13.6115],['Nusfjord 支线（可选）',68.0355,13.347],['Hamnøy / Eliassen',67.9455,13.132],['Sakrisøy',67.9404,13.1125],['Reine',67.9325,13.0896]],plan:[['08:00—09:00','早餐、退房，向西南出发。'],['上午—中午','Leknes 采购、午餐。'],['下午','视天气走 Nusfjord 支线；返回 E10 后前往 Hamnøy。'],['16:00—17:00','目标入住 Eliassen，再轻装去 Sakrisøy、Reine 看光线。']],checks:['Leknes 补齐两天食品与返程路餐','Nusfjord 渔村（可选）','Hamnøy 红色渔屋','Sakrisøy 黄色木屋','Reine 港湾'],tips:[['驾驶估算','Henningsvær 到 Hamnøy 纯驾驶约按 2.5—3 小时规划；加支线、采购和拍照后需要大半天。'],['顺路顺序','沿主线先到 Hamnøy，再到 Sakrisøy，然后 Reine。先放行李，减少折返。Nusfjord 为单独支线，时间紧可略过。'],['周日准备','10/4 是周日，今天买齐两晚晚餐、明日三餐和 10/5 路餐。桥边拍照只在人行区域完成，车辆停到合法车位。']]},
+{id:'1004',date:'10.4',week:'周日',title:'群山与渔村，留给天气决定',sub:'Hamnøy · Reine · Å / 条件允许再登山',hotel:'eliassen',route:['Eliassen Rorbuer','Sakrisoy','Reine','A i Lofoten'],mode:'driving',points:[['Hamnøy',67.9455,13.132],['Reinebringen 起点附近',67.923,13.079],['Reine 港湾',67.9325,13.0896],['Å 渔村',67.8806,12.981]],plan:[['08:00 左右','早餐，查看天气、风力与步道信息。'],['09:00—13:00','仅在开放、无冰雪且当地建议允许时徒步 Reinebringen。'],['备选全天','Hamnøy → Sakrisøy → Reine → Å，雨歇时散步，咖啡与休息。'],['傍晚—晚上','收拾大部分行李；就近争取最后一晚极光，司机早点休息。']],checks:['Reinebringen 徒步（条件性可选）','Reine 港湾慢逛','Å 渔村（可选）','罗弗敦最后一晚极光观察（可选）','整理行李和次日路餐'],tips:[['登山有条件','官方列明季节为 5—9 月，10/4 超出列明季节。须核实步道开放、结冰、风雨和能见度，采纳当地可靠建议。'],['若适合徒步','为停车步行、上下山、休息拍照整体留 3—4 小时。沿既有台阶，带足水，下山控制速度。'],['替代安排','天气不佳就走海岸渔村路线，不强求登顶。次日长途返机场，今晚不熬夜追光。']]},
+{id:'1005',date:'10.5',week:'周一',title:'告别罗弗敦，回到奥斯陆',sub:'Hamnøy → EVE 还车 → OSL',hotel:'airport',route:['Eliassen Rorbuer','Harstad Narvik Airport'],mode:'driving',points:[['Hamnøy 出发',67.9455,13.132],['埃沃内斯 EVE',68.4913,16.6781],['奥斯陆 OSL',60.1939,11.1004],['机场酒店片区',60.187,11.069]],plan:[['07:00—08:00','早餐后退房，07:30—08:00 出发。'],['上午—下午','沿 E10 返回机场，整段转场预留 6—7 小时。'],['14:00—15:00','目标 14:00—14:30 到机场周边，加油还车，15:00 进入航站楼。'],['17:15—19:00','DY367 · 埃沃内斯 EVE → 奥斯陆 OSL','flight'],['19:00 后','取行李，搭乘酒店接驳或出租车入住。']],checks:['按时出发并安全返回 EVE','还车并留存凭据','飞抵奥斯陆','入住机场酒店并确认次日接驳'],tips:[['关键起飞时间','PDF 为 17:15，早于手写的 17:50；出发前核实。纯驾驶先按约 4.5—5 小时估算，另加天气、休息和加油。'],['今天不加景点','带路餐，出发前看道路通告；避免为了最后一张照片挤占还车和值机时间。'],['机场酒店','两间双床房，早餐共四份。酒店需要地面接驳，确认站点、班次与费用。']]},
+{id:'1006',date:'10.6',week:'周二',title:'早餐之后，启程回家',sub:'奥斯陆 → 北京 · 夜航',hotel:null,route:['Best Western Plus Oslo Airport','Oslo Airport'],mode:'driving',points:[['机场酒店片区',60.187,11.069],['奥斯陆机场 OSL',60.1939,11.1004]],plan:[['08:00—09:00','酒店早餐，检查证件和行李。'],['09:30—10:30','退房前往机场，目标 10:30 前到航站楼。'],['13:30','HU770 · 奥斯陆 OSL 起飞，次日抵达北京','flight']],checks:['酒店早餐','完成机场值机与托运','搭乘 HU770 返回北京'],tips:[['早餐与接驳','早餐已含，出发前确认供应时段。接驳等车时间另算，若需退税手续进一步提前。'],['返程日期','北京到达时间为 10/7 04:30，中国已是第二天。随身保留下一段登机所需证件。']]},
+{id:'1007',date:'10.7',week:'周三',title:'抵达上海，旅途收尾',sub:'北京 → 上海',hotel:null,route:['Beijing Capital Airport','Shanghai Hongqiao Airport'],mode:'transit',points:[['北京首都机场',40.0799,116.6031],['上海虹桥机场',31.1979,121.3363]],plan:[['04:30','HU770 抵达北京首都 T2。','flight'],['04:30—07:00','入境、取行李、海关、重新托运与安检。'],['07:45—10:00','HU7601 · 北京首都 T2 → 上海虹桥 T2','flight']],checks:['北京完成入境与重新托运','平安抵达上海'],tips:[['中转余量','PDF 标注北京行李不直挂，中转 3 小时 15 分钟，下机后优先完成转机流程。'],['完整行程','手写计划止于回北京，机票另含本段北京飞上海，已一并保留。']]}
+];
+</script><script src="photo.js"></script><script>const KEY='norway-2026-checkins-v1',LISTKEY='norway-2026-lists-v1';let state={},lists={},storageOK=true;try{state=JSON.parse(localStorage.getItem(KEY)||'{}');lists=JSON.parse(localStorage.getItem(LISTKEY)||'{}');if(!state||typeof state!=='object'||Array.isArray(state))state={};if(!lists||typeof lists!=='object'||Array.isArray(lists))lists={}}catch{state={};lists={};storageOK=false}
+for(const d of DAYS){if(!Array.isArray(lists[d.id]))lists[d.id]=d.checks.map((text,i)=>({id:d.id+'-'+i,text}));else lists[d.id]=lists[d.id].filter(x=>x&&typeof x.id==='string'&&typeof x.text==='string')}
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const link=(u,t)=>`<a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a>`;const search=q=>'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q);const route=d=>'https://www.google.com/maps/dir/?api=1&origin='+encodeURIComponent(d.route[0])+'&destination='+encodeURIComponent(d.route.at(-1))+'&travelmode='+d.mode+(d.route.length>2?'&waypoints='+encodeURIComponent(d.route.slice(1,-1).join('|')):'');const allItems=()=>DAYS.flatMap(d=>lists[d.id].map(x=>({...x,date:d.date,day:d.id})));
+function check(x,day){return `<div class="check-row ${state[x.id]?'is-done':''}"><label class="check"><input type="checkbox" data-check="${esc(x.id)}" ${state[x.id]?'checked':''}><span class="label-text">${esc(x.text)}</span></label><div class="item-actions"><button type="button" data-edit="${esc(x.id)}" data-day="${day}" aria-label="编辑：${esc(x.text)}">编辑</button><button type="button" data-delete="${esc(x.id)}" data-day="${day}" aria-label="删除：${esc(x.text)}">删除</button></div></div>`}
+function hotel(id){const h=HOTELS[id];return `<section class="hotel"><p class="eyebrow">今晚入住 · ${h.stay}</p><h3>${h.name}</h3><p>${h.address}</p><p><strong>${h.time}</strong></p><p>${h.meal}</p><p>${h.room}</p><div class="links">${link(h.web,'酒店官网')}<a href="tel:${h.phone}">拨打 ${h.phone}</a><a href="mailto:${h.email}">邮件联系</a>${link(search(h.name+' '+h.address),'导航到酒店')}</div></section>`}
+document.querySelector('#days-nav').innerHTML=DAYS.map(d=>`<a href="#day-${d.id}">${d.date}</a>`).join('');document.querySelector('#days').innerHTML=DAYS.map(d=>`<article class="day" id="day-${d.id}"><div class="day-head"><div class="date-box"><strong>${d.date}</strong><small>${d.week}</small></div><div><h2>${d.title}</h2><p class="subtitle">${d.sub}</p></div></div><div class="day-body"><div class="columns"><section><h3>主要行程安排</h3><ul class="timeline">${d.plan.map(p=>`<li class="${p[2]||''}"><time>${p[0]}</time><p>${p[1]}</p></li>`).join('')}</ul></section><section><h3 class="section-title">重点打卡清单 <span class="day-count" data-count="${d.id}"></span></h3><div data-list="${d.id}"></div><button class="add-item" type="button" data-add="${d.id}">＋ 添加打卡</button></section></div><section class="advice"><h3>具体细项与建议</h3>${d.tips.map(t=>`<p><strong>${t[0]}：</strong>${t[1]}</p>`).join('')}</section>${d.hotel?hotel(d.hotel):''}<details class="map-panel" data-map="${d.id}"><summary>查看当日真实地图与路线</summary><div class="map-inner"><label for="map-${d.id}">地图地点</label><select id="map-${d.id}" data-map-select="${d.id}">${d.points.map((p,i)=>`<option value="${i}">${p[0]}</option>`).join('')}</select><div class="map-canvas"></div><p class="map-note">可缩放、拖动的 OpenStreetMap 实际底图。地点标记为概略位置，路线以导航结果为准。</p><div class="links">${link(route(d),'打开当日路线')}${link(search(d.points[0][0]+' Norway'),'打开所选地点')}</div>${d.id==='0927'?`<div class="links">${link('https://www.google.com/maps/dir/?api=1&origin=Hotell+Bondeheimen+Oslo&destination=TORP+Sandefjord+Airport&travelmode=transit','奥斯陆酒店 → TRF 公共交通')}${link('https://torp.no/en/to-and-from/train/','Torp 官方接驳说明')}</div>`:''}</div></details></div></article>`).join('');
+function renderList(day){document.querySelector(`[data-list="${day}"]`).innerHTML=lists[day].length?lists[day].map(x=>check(x,day)).join(''):'<p class="empty">这一天还没有打卡项目，点击下方添加。</p>'}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state));localStorage.setItem(LISTKEY,JSON.stringify(lists));storageOK=true}catch{storageOK=false}update()}
+function update(){const all=allItems(),done=all.filter(x=>state[x.id]);document.querySelector('#top-count').textContent=done.length+'/'+all.length;document.querySelectorAll('[data-count]').forEach(el=>{const items=lists[el.dataset.count];el.textContent=items.filter(x=>state[x.id]).length+'/'+items.length});document.querySelectorAll('[data-check]').forEach(el=>{el.checked=!!state[el.dataset.check];el.closest('.check-row').classList.toggle('is-done',el.checked)});document.querySelector('#storage-note').textContent=storageOK?'清单内容和打卡状态自动保存在当前浏览器；刷新后保留，不跨设备同步。可选项目可按需要删除。':'当前浏览器无法保存记录；本次修改仅在当前页面有效。'}
+const dialog=document.querySelector('#item-dialog'),textInput=document.querySelector('#item-text');let editing=null;function openEditor(day,id=null){editing={day,id};document.querySelector('#dialog-title').textContent=id?'编辑打卡':'添加打卡 · '+DAYS.find(d=>d.id===day).date;textInput.value=id?lists[day].find(x=>x.id===id).text:'';document.querySelector('#edit-error').textContent='';dialog.showModal();textInput.focus()}document.querySelector('#cancel-edit').addEventListener('click',()=>dialog.close());document.querySelector('#item-form').addEventListener('submit',e=>{e.preventDefault();const text=textInput.value.trim();if(!text){document.querySelector('#edit-error').textContent='请填写打卡内容。';textInput.focus();return}const {day,id}=editing;if(id){lists[day].find(x=>x.id===id).text=text}else{lists[day].push({id:day+'-custom-'+(globalThis.crypto?.randomUUID?.() || Date.now().toString(36)+'-'+Math.random().toString(36).slice(2)),text})}renderList(day);save();dialog.close()});document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.add)openEditor(b.dataset.add);if(b.dataset.edit)openEditor(b.dataset.day,b.dataset.edit);if(b.dataset.delete){const day=b.dataset.day,id=b.dataset.delete;lists[day]=lists[day].filter(x=>x.id!==id);delete state[id];renderList(day);save()}});
+window.__loadLeaflet=(()=>{const urls=['https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js','https://unpkg.com/leaflet@1.9.4/dist/leaflet.js','https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js'];let i=0;return function load(){return new Promise((res,rej)=>{if(window.L)return res();if(i>=urls.length)return rej(new Error('map lib unavailable'));const s=document.createElement('script');s.src=urls[i++];s.onload=()=>window.L?res():load().then(res,rej);s.onerror=()=>load().then(res,rej);document.head.appendChild(s)})}})();
+document.addEventListener('change',e=>{if(e.target.matches('[data-check]')){state[e.target.dataset.check]=e.target.checked;save()}if(e.target.matches('[data-map-select]'))__loadLeaflet().then(()=>loadMap(e.target.dataset.mapSelect,Number(e.target.value))).catch(()=>{})});const maps={};function loadMap(id,n=0){const d=DAYS.find(x=>x.id===id),p=d.points[n],el=document.querySelector(`[data-map="${id}"]`),box=el.querySelector('.map-canvas');let m=maps[id];if(!m){m=maps[id]=L.map(box,{scrollWheelZoom:false});L.tileLayer('https://tile.osm.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap 贡献者'}).addTo(m);m._mk=L.marker([p[1],p[2]]).addTo(m)}else m._mk.setLatLng([p[1],p[2]]);m.setView([p[1],p[2]],13);el.querySelectorAll('.links a')[1].href=search(p[0]+(id==='0925'||id==='1007'?'':' Norway'))}document.querySelectorAll('[data-map]').forEach(el=>el.addEventListener('toggle',()=>{if(!el.open)return;const sel=el.querySelector('select'),idx=sel?Number(sel.value):0;__loadLeaflet().then(()=>{loadMap(el.dataset.map,idx);setTimeout(()=>{const m=maps[el.dataset.map];if(m)m.invalidateSize()},560)}).catch(()=>{el.querySelector('.map-note').textContent='地图组件加载失败，请联网后重试，或使用下方链接在浏览器中打开地图。'})}));for(const d of DAYS)renderList(d.id);update();window.addEventListener('storage',e=>{if(e.key===KEY||e.key===LISTKEY){try{const s=JSON.parse(localStorage.getItem(KEY)||'{}'),l=JSON.parse(localStorage.getItem(LISTKEY)||'{}');if(s&&typeof s==='object')state=s;for(const d of DAYS)if(Array.isArray(l[d.id]))lists[d.id]=l[d.id];for(const d of DAYS)renderList(d.id);update()}catch{}}});const obs=new IntersectionObserver(entries=>{for(const e of entries)if(e.isIntersecting){document.querySelectorAll('#days-nav a').forEach(a=>a.classList.toggle('active',a.hash==='#'+e.target.id))}},{rootMargin:'-130px 0px -65% 0px'});document.querySelectorAll('.day').forEach(el=>obs.observe(el));document.querySelector('#photo').innerHTML='<img src="data:image/jpeg;base64,'+window.PHOTO_B64+'" alt="罗弗敦 Hamnøy 的渔屋、海湾与群山" width="1600" height="512">';document.querySelector('#photo-credit').innerHTML='照片：'+link('https://commons.wikimedia.org/wiki/File:Hamn%C3%B8y.jpg','Hamnøy · Jon Olav Eikenes')+' · '+link('https://creativecommons.org/licenses/by/2.0/','CC BY 2.0')+'，按版面裁切。';
+if(document.modelContext?.registerTool){const lifecycle=new AbortController();const specs=[{name:'list_trip_checkins',description:'读取当前每日打卡项目及完成状态',inputSchema:{type:'object',properties:{},additionalProperties:false},annotations:{readOnlyHint:true},execute:()=>allItems().map(x=>({...x,done:!!state[x.id]}))},{name:'set_trip_checkins',description:'批量设置现有打卡完成状态，并保存到当前浏览器',inputSchema:{type:'object',properties:{updates:{type:'array',items:{type:'object',properties:{id:{type:'string'},done:{type:'boolean'}},required:['id','done'],additionalProperties:false}}},required:['updates'],additionalProperties:false},annotations:{readOnlyHint:false},execute:input=>{if(!input||!Array.isArray(input.updates)||input.updates.some(x=>!x||typeof x.done!=='boolean'||!allItems().some(a=>a.id===x.id)))throw new Error('无效的打卡项目或状态');for(const x of input.updates)state[x.id]=x.done;save();return{updated:input.updates.length,saved:storageOK}}}];for(const t of specs){try{Promise.resolve(document.modelContext.registerTool(t,{signal:lifecycle.signal})).catch(()=>{})}catch{}}window.addEventListener('pagehide',()=>lifecycle.abort(),{once:true})}
+</script><script>
+(()=>{document.body.classList.add('js');
+const fine=matchMedia('(hover:hover) and (pointer:fine)').matches,calm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const intro=document.querySelector('.intro');
+if(intro){const els=intro.querySelectorAll('.eyebrow,h1,.intro p,#photo');els.forEach((el,i)=>{el.setAttribute('data-hero','');el.style.setProperty('--d',(0.06+i*0.09)+'s')});requestAnimationFrame(()=>requestAnimationFrame(()=>intro.classList.add('in')))}
+const targets=[...document.querySelectorAll('.day'),...document.querySelectorAll('.notice')];
+targets.forEach((el,i)=>{el.classList.add('rv');el.style.setProperty('--d',(i%3)*80+'ms')});
+if(calm||!('IntersectionObserver' in window)){targets.forEach(el=>el.classList.add('in'))}
+else{const io=new IntersectionObserver(es=>{for(const e of es)if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}},{rootMargin:'0px 0px -5% 0px',threshold:.05});targets.forEach(el=>io.observe(el))}
+if(fine&&!calm){document.body.classList.add('has-cursor');const d=document.createElement('div');d.id='cur-dot';const r=document.createElement('div');r.id='cur-ring';document.body.append(d,r);let mx=innerWidth/2,my=innerHeight/2,dx=mx,dy=my,rx=mx,ry=my,hot=false;addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;if(!d.classList.contains('on')){d.classList.add('on');r.classList.add('on')}},{passive:true});addEventListener('mouseover',e=>{hot=!!(e.target.closest&&e.target.closest('a,button,summary,select,label.check'))});(function loop(){dx+=(mx-dx)*.42;dy+=(my-dy)*.42;rx+=(mx-rx)*.15;ry+=(my-ry)*.15;d.style.transform='translate3d('+dx+'px,'+dy+'px,0) translate(-50%,-50%)';r.style.transform='translate3d('+rx+'px,'+ry+'px,0) translate(-50%,-50%) scale('+(hot?1.7:1)+')';r.style.borderColor=hot?'var(--accent)':'var(--ink-3)';requestAnimationFrame(loop)})()}
+})();
+</script><script>
+(()=>{const USERS=['liujiangfeng','xiarui','xiaxi','tangyuan'];
+const dlg=document.getElementById('file-dialog'),loginView=document.getElementById('login-view'),filesView=document.getElementById('files-view'),chips=document.getElementById('user-chips'),loginForm=document.getElementById('login-form'),loginName=document.getElementById('login-name'),loginError=document.getElementById('login-error'),userLine=document.getElementById('fd-user-line'),drop=document.getElementById('fd-drop'),fileInput=document.getElementById('file-input'),listEl=document.getElementById('file-list'),preview=document.getElementById('fd-preview');
+let db=null,currentUser=localStorage.getItem('dolphin-user')||'',previewURL=null;
+function openDB(){return new Promise((res,rej)=>{try{const r=indexedDB.open('dolphin-trip',1);r.onupgradeneeded=()=>{r.result.createObjectStore('files',{keyPath:'id',autoIncrement:true})};r.onsuccess=()=>{db=r.result;res()};r.onerror=()=>rej(r.error)}catch(e){rej(e)}})}
+function store(mode){return db.transaction('files',mode).objectStore('files')}
+const fmtSize=n=>n>1048576?(n/1048576).toFixed(1)+' MB':n>1024?Math.round(n/1024)+' KB':n+' B';
+const fmtTime=t=>{const d=new Date(t);return (d.getMonth()+1)+'/'+d.getDate()+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')};
+function showView(){const ok=USERS.includes(currentUser);loginView.hidden=ok;filesView.hidden=!ok;if(ok){userLine.textContent='当前用户：'+currentUser;renderFiles()}else{loginError.textContent='';loginName.value='';chips.innerHTML=USERS.map(u=>'<button type="button" data-u="'+u+'">'+u+'</button>').join('')}}
+async function renderFiles(){if(!db)return;const items=await new Promise((res,rej)=>{const r=store('readonly').getAll();r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)});items.sort((a,b)=>b.addedAt-a.addedAt);listEl.innerHTML=items.length?items.map(f=>'<li class="fd-item" data-id="'+f.id+'"><span class="fd-name"></span><span class="fd-meta">'+fmtSize(f.size)+' · '+fmtTime(f.addedAt)+' · 由 <em>'+f.uploader+'</em> 上传</span><span class="fd-ops"><button type="button" data-act="open">打开</button><button type="button" data-act="dl">下载</button><button type="button" data-act="rn">改名</button><button type="button" class="fd-del" data-act="del">删除</button></span></li>').join(''):'<li class="empty">还没有文件，上传第一份行程单吧。</li>';listEl.querySelectorAll('.fd-item').forEach(li=>{const f=items.find(x=>String(x.id)===li.dataset.id);li.querySelector('.fd-name').textContent=f.name})}
+function saveFiles(files){return Promise.all(files.map(f=>new Promise((res,rej)=>{const r=store('readwrite').put({name:f.name,uploader:currentUser,size:f.size,type:f.type,addedAt:Date.now(),blob:f});r.onsuccess=res;r.onerror=()=>rej(r.error)})))}
+async function upload(fileList){const files=[...fileList];if(!files.length)return;await saveFiles(files);renderFiles()}
+function doDownload(f){const url=URL.createObjectURL(f.blob);const a=document.createElement('a');a.href=url;a.download=f.name;a.click();setTimeout(()=>URL.revokeObjectURL(url),5000)}
+function doOpen(f){if(previewURL)URL.revokeObjectURL(previewURL);const url=URL.createObjectURL(f.blob);previewURL=url;preview.hidden=false;const t=f.type||'';if(t.startsWith('image/')){preview.innerHTML='<img src="'+url+'" alt="">'}else if(t==='application/pdf'){preview.innerHTML='<iframe src="'+url+'" title="预览"></iframe>'}else if(t.startsWith('text/')||/json|csv|xml/.test(t)||f.size<512000){const rd=new FileReader();rd.onload=()=>{preview.innerHTML='<pre></pre>';preview.querySelector('pre').textContent=rd.result};rd.readAsText(f.blob)}else{doDownload(f);preview.hidden=true;return}preview.scrollIntoView({block:'nearest',behavior:'smooth'})}
+listEl.addEventListener('click',async e=>{const btn=e.target.closest('button');if(!btn)return;const li=btn.closest('.fd-item');const id=Number(li.dataset.id);const f=await new Promise((res,rej)=>{const r=store('readonly').get(id);r.onsuccess=()=>res(r.result);r.onerror=rej});if(!f)return;const act=btn.dataset.act;
+if(act==='open')doOpen(f);
+if(act==='dl')doDownload(f);
+if(act==='rn'){const nameEl=li.querySelector('.fd-name');const input=document.createElement('input');input.className='fd-rename';input.value=f.name;input.maxLength=120;nameEl.replaceWith(input);input.focus();input.select();let done=false;const commit=async()=>{if(done)return;done=true;const v=input.value.trim();if(v&&v!==f.name){f.name=v;await new Promise((res,rej)=>{const r=store('readwrite').put(f);r.onsuccess=res;r.onerror=rej})}renderFiles()};input.addEventListener('blur',commit);input.addEventListener('keydown',ev=>{if(ev.key==='Enter')commit();if(ev.key==='Escape'){done=true;renderFiles()}})}
+if(act==='del'){if(btn.dataset.arm){await new Promise((res,rej)=>{const r=store('readwrite').delete(id);r.onsuccess=res;r.onerror=rej});if(previewURL){URL.revokeObjectURL(previewURL);previewURL=null;preview.hidden=true}renderFiles()}else{btn.dataset.arm='1';btn.textContent='确认？';setTimeout(()=>{btn.dataset.arm='';btn.textContent='删除'},3000)}}});
+fileInput.addEventListener('change',()=>{upload(fileInput.files);fileInput.value=''});
+['dragover','dragenter'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('over')}));
+['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('over')}));
+drop.addEventListener('drop',e=>upload(e.dataTransfer.files));
+loginForm.addEventListener('submit',e=>{e.preventDefault();const u=loginName.value.trim().toLowerCase();if(USERS.includes(u)){currentUser=u;localStorage.setItem('dolphin-user',u);showView()}else{loginError.textContent='用户名无效，请从上方名单选择或正确输入。'}});
+chips.addEventListener('click',e=>{const b=e.target.closest('button[data-u]');if(b){currentUser=b.dataset.u;localStorage.setItem('dolphin-user',currentUser);showView()}});
+document.getElementById('fd-switch').addEventListener('click',()=>{currentUser='';localStorage.removeItem('dolphin-user');showView()});
+document.getElementById('brand-open').addEventListener('click',async e=>{e.preventDefault();try{if(!db)await openDB()}catch(err){}showView();dlg.showModal()});
+dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});
+dlg.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>dlg.close()));
+})();
+</script></body></html>
