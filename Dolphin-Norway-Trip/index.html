@@ -401,7 +401,7 @@ if(location.hash==='#tab-lang'||location.hash==='#tab-docs')showTab(location.has
 
 /* ===== 常用：音频与翻译 ===== */
 (()=>{if(window.LANG_AUDIO_B64){const au=new Audio('data:audio/mpeg;base64,'+window.LANG_AUDIO_B64);let onBtn=null;
-document.querySelectorAll('.say').forEach(btn=>{btn.addEventListener('click',()=>{if(onBtn&&onBtn!==btn)onBtn.classList.remove('on');
+document.querySelectorAll('.say[data-s]').forEach(btn=>{btn.addEventListener('click',()=>{if(onBtn&&onBtn!==btn)onBtn.classList.remove('on');
 au.pause();au.currentTime=parseFloat(btn.dataset.s);const end=parseFloat(btn.dataset.e);
 const h=()=>{if(au.currentTime>=end){au.pause();au.removeEventListener('timeupdate',h);btn.classList.remove('on');if(onBtn===btn)onBtn=null}};
 au.addEventListener('timeupdate',h);au.play().catch(()=>{});btn.classList.add('on');onBtn=btn})})}
