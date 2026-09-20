@@ -157,12 +157,12 @@ table.phrase{width:100%;border-collapse:collapse;font-size:14.5px}
 table.phrase th{font-size:12px;letter-spacing:2px;color:var(--ink-2);text-align:left;border-bottom:1px solid var(--line-strong);padding:6px 8px;font-weight:650}
 table.phrase td{border-bottom:1px solid var(--line);padding:9px 8px;vertical-align:top}
 table.phrase td.no{font-weight:600}
-table.phrase td.ipa{font-family:var(--mono);font-size:12.5px;color:var(--ink-2);white-space:nowrap}
+table.phrase td.ipa{font-family:var(--mono);font-size:12.5px;color:var(--ink-2);overflow-wrap:anywhere}
 table.phrase td.ym{font-size:13px;color:var(--ink-2)}
 table.doc{width:100%;border-collapse:collapse;font-size:14px}
 table.doc th{font-size:12px;letter-spacing:2px;color:var(--ink-2);text-align:left;border-bottom:1px solid var(--line-strong);padding:6px 8px;font-weight:650}
 table.doc td{border-bottom:1px solid var(--line);padding:8px;vertical-align:top}
-table.doc td.mono{font-family:var(--mono);font-size:13px;white-space:nowrap}
+table.doc td.mono{font-family:var(--mono);font-size:13px;overflow-wrap:anywhere}
 .audio-box{display:flex;align-items:center;gap:14px;margin:4px 0 14px}.say{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;margin-right:8px;border:1px solid var(--line-strong);border-radius:50%;background:none;color:var(--ink);font-size:10px;cursor:pointer;vertical-align:2px;transition:background .25s var(--ease),color .25s var(--ease),border-color .25s var(--ease)}.say:hover{border-color:var(--ink)}.say.on{background:var(--accent);border-color:var(--accent);color:#fff}
 .audio-box audio{height:44px;flex:1}
 .tr-row{display:flex;gap:8px;margin:10px 0 6px}
@@ -202,6 +202,24 @@ body.js .rv.in{opacity:1;transform:none}
 @media(max-width:900px){.intro{grid-template-columns:1fr;gap:20px;padding:44px 0 32px}.columns{grid-template-columns:1fr;gap:0}}
 @media(max-width:700px){main{padding:0 16px}.top{padding:0 16px}h1{font-size:34px;letter-spacing:2px}#photo img{height:160px}.day-head{padding:20px 16px;gap:14px;align-items:flex-start}.day-head h2{font-size:21px}.date-box{padding:8px 12px}.date-box strong{font-size:22px}.day-body{padding:0 16px 22px}.timeline li{grid-template-columns:92px 1fr;gap:8px}.timeline time{font-size:11.5px}.links a{padding:9px 12px}.day{margin:26px 0}.hotel{padding:16px}.map-canvas{height:240px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}body.js .rv,body.js .intro [data-hero]{opacity:1;transform:none;transition:none}.map-inner{transition:none}}
+@media(max-width:640px){.sheet{padding:16px 14px;margin:14px 0}
+table.phrase{font-size:13.5px}
+table.phrase thead,table.phrase tr:first-child{display:none}
+table.phrase tbody,table.phrase tr,table.phrase td{display:block;width:100%;box-sizing:border-box}
+table.phrase tr{border-bottom:1px solid var(--line);padding:10px 2px}
+table.phrase td{border-bottom:0;padding:2px 0}
+table.phrase td:nth-child(1){font-weight:650;font-size:14px}
+table.phrase td.no{font-size:15px;margin:3px 0}
+table.phrase td.ipa,table.phrase td.ym{display:inline-block;width:auto;margin-right:12px;overflow-wrap:normal}
+table.phrase td.ipa::before{content:'音标 ';color:var(--ink-3);font-family:var(--sans)}
+table.phrase td.ym::before{content:'谐音 ';color:var(--ink-3)}
+table.doc{font-size:13.5px}
+table.doc tr:first-child{display:none}
+table.doc tbody,table.doc tr,table.doc td{display:block;width:100%;box-sizing:border-box}
+table.doc tr{border-bottom:1px solid var(--line);padding:10px 2px}
+table.doc td{border-bottom:0;padding:2px 0}
+table.doc td.mono{font-size:12px}
+table.doc td[data-l]::before{content:attr(data-l) ' · ';color:var(--ink-3);font-size:11px;font-family:var(--sans)}}
 @media print{body{background:#fff}.map-canvas,#days-nav,iframe{display:none!important}.day{break-inside:avoid;border-color:#999}}
 </style></head><body><header><div class="top"><button class="brand" id="tab-toggle" aria-expanded="false" title="点击切换栏目"><em>N·</em>挪威旅行手册</button><span class="summary-link">已打卡 <span id="top-count">0</span></span></div></header><nav id="tab-panel" hidden><button type="button" data-tab="trip" class="active">行程</button><button type="button" data-tab="lang">常用</button><button type="button" data-tab="docs">证照</button></nav><main><div id="view-trip"><section class="intro"><div><p class="eyebrow">26 SEP — 06 OCT 2026 · NORWAY</p><h1>挪威，逐日旅行手册</h1><p>奥斯陆 · 斯塔万格 · 卑尔根 · 罗弗敦</p><p class="meta">境内 11 天 10 晚 · 含 9/25 出发与 10/7 返抵</p></div><div id="photo"></div></section><nav id="days-nav" aria-label="按日期跳转"></nav><div id="days"></div><p id="storage-note" role="status">清单及打卡状态保存在当前浏览器，不跨设备同步。</p><dialog id="item-dialog"><form id="item-form"><h2 id="dialog-title">添加打卡</h2><label for="item-text">打卡内容</label><input id="item-text" maxlength="180" required autocomplete="off"><label id="item-time-label" for="item-time" hidden>时间（如：早上；可留空）</label><input id="item-time" hidden autocomplete="off"><p id="edit-error" role="alert"></p><div class="dialog-actions"><button type="button" id="cancel-edit">取消</button><button type="submit" class="primary">保存</button></div></form></dialog></div><section id="view-lang" hidden>
 <div class="view-head"><p class="eyebrow">栏目二 · 常用</p><h2>挪威语应急手册</h2><p class="meta">音标为东挪威语（Bokmål）常见读法；中文谐音仅作辅助，以音标与音频为准。</p></div>
@@ -368,10 +386,10 @@ go.addEventListener('click',tr);inp.addEventListener('keydown',e=>{if(e.key==='E
 function renderDocs(){const F=document.getElementById('docs-flights');if(F.dataset.done)return;F.dataset.done='1';
 const esc2=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
 const flights=[['9.25 周五','上海虹桥 → 北京首都','HU7608 · 19:00—21:15','国内中转，行李见当日提示'],['9.26 周六','北京首都 → 奥斯陆','HU769 · 03:10—06:45','抵达后进城入住'],['9.27 周日','奥斯陆 Torp → 斯塔万格','15:15 起飞','航班号以机票为准；落地取车'],['9.29 周二','斯塔万格 → 卑尔根','14:25—15:05','提前去机场还车'],['10.1 周四','卑尔根 → 埃沃内斯 EVE','12:55—16:40','含中转，以机票为准；落地取车'],['10.5 周一','埃沃内斯 → 奥斯陆','17:50—19:00','白天还车后飞回'],['10.6 周二','奥斯陆 → 北京','HU770 · 13:30 起飞','次日 04:30 抵达北京'],['10.7 周三','北京 → 上海虹桥','HU7601 · 07:45—10:00','入境后重新托运']];
-F.innerHTML='<tr><th>日期</th><th>行程</th><th>时间 / 航班</th><th>备注</th></tr>'+flights.map(f=>'<tr><td class="mono">'+esc2(f[0])+'</td><td>'+esc2(f[1])+'</td><td class="mono">'+esc2(f[2])+'</td><td>'+esc2(f[3])+'</td></tr>').join('');
+F.innerHTML='<tr><th>日期</th><th>行程</th><th>时间 / 航班</th><th>备注</th></tr>'+flights.map(f=>'<tr><td class="mono" data-l="日期">'+esc2(f[0])+'</td><td data-l="行程">'+esc2(f[1])+'</td><td class="mono" data-l="时间 / 航班">'+esc2(f[2])+'</td><td data-l="备注">'+esc2(f[3])+'</td></tr>').join('');
 const H=document.getElementById('docs-hotels');
 const rows=[['9.26—9.27','oslo'],['9.27—9.28','base'],['9.28—9.29','stavanger'],['9.29—10.1','bergen'],['10.1—10.2','nyvagar'],['10.2—10.3','hennings'],['10.3—10.5','eliassen'],['10.5—10.6','airport']];
-H.innerHTML='<tr><th>入住日期</th><th>酒店</th><th>地址</th><th>确认号</th><th>电话</th></tr>'+rows.map(r=>{const h=HOTELS[r[1]];return '<tr><td class="mono">'+r[0]+'</td><td>'+esc2(h.name)+'</td><td>'+esc2(h.address)+'</td><td class="mono">'+esc2(h.conf)+'</td><td class="mono">'+esc2(h.phone)+'</td></tr>'}).join('')}
+H.innerHTML='<tr><th>入住日期</th><th>酒店</th><th>地址</th><th>确认号</th><th>电话</th></tr>'+rows.map(r=>{const h=HOTELS[r[1]];return '<tr><td class="mono" data-l="入住日期">'+r[0]+'</td><td data-l="酒店">'+esc2(h.name)+'</td><td data-l="地址">'+esc2(h.address)+'</td><td class="mono" data-l="确认号">'+esc2(h.conf)+'</td><td class="mono" data-l="电话">'+esc2(h.phone)+'</td></tr>'}).join('')}
 
 /* ===== 日程安排：可编辑增删 ===== */
 let planEdits={};
