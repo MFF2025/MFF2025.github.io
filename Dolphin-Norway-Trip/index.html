@@ -141,7 +141,7 @@ footer h3{border-bottom:0;color:var(--ink)}
 /* ===== 栏目切换 ===== */
 #tab-toggle{background:none;border:0;padding:0;font-family:var(--serif);font-weight:700;font-size:17px;letter-spacing:2px;color:var(--ink)}
 #tab-toggle em{display:inline-block;font-style:normal;color:var(--accent);transition:transform .55s var(--spring)}
-body.tab-open #tab-toggle em{transform:rotateY(180deg)}
+body.tab-open #tab-toggle em{transform:rotate(90deg)}
 #tab-panel{position:sticky;top:58px;z-index:28;display:flex;gap:10px;justify-content:center;padding:14px 16px;background:rgba(176,198,179,.92);backdrop-filter:saturate(1.3) blur(14px);-webkit-backdrop-filter:saturate(1.3) blur(14px);border-bottom:1px solid var(--line);transform-origin:top;animation:tabIn .45s var(--ease)}
 #tab-panel[hidden]{display:none}
 @keyframes tabIn{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
@@ -163,7 +163,7 @@ table.doc{width:100%;border-collapse:collapse;font-size:14px}
 table.doc th{font-size:12px;letter-spacing:2px;color:var(--ink-2);text-align:left;border-bottom:1px solid var(--line-strong);padding:6px 8px;font-weight:650}
 table.doc td{border-bottom:1px solid var(--line);padding:8px;vertical-align:top}
 table.doc td.mono{font-family:var(--mono);font-size:13px;white-space:nowrap}
-.audio-box{display:flex;align-items:center;gap:14px;margin:4px 0 14px}
+.audio-box{display:flex;align-items:center;gap:14px;margin:4px 0 14px}.say{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;margin-right:8px;border:1px solid var(--line-strong);border-radius:50%;background:none;color:var(--ink);font-size:10px;cursor:pointer;vertical-align:2px;transition:background .25s var(--ease),color .25s var(--ease),border-color .25s var(--ease)}.say:hover{border-color:var(--ink)}.say.on{background:var(--accent);border-color:var(--accent);color:#fff}
 .audio-box audio{height:44px;flex:1}
 .tr-row{display:flex;gap:8px;margin:10px 0 6px}
 .tr-row input{flex:1;min-height:48px;border:1px solid var(--line-strong);border-radius:2px;background:#fff;padding:10px 12px;font-size:16px}
@@ -205,13 +205,13 @@ body.js .rv.in{opacity:1;transform:none}
 @media print{body{background:#fff}.map-canvas,#days-nav,iframe{display:none!important}.day{break-inside:avoid;border-color:#999}}
 </style></head><body><header><div class="top"><button class="brand" id="tab-toggle" aria-expanded="false" title="点击切换栏目"><em>N·</em>挪威旅行手册</button><span class="summary-link">已打卡 <span id="top-count">0</span></span></div></header><nav id="tab-panel" hidden><button type="button" data-tab="trip" class="active">行程</button><button type="button" data-tab="lang">常用</button><button type="button" data-tab="docs">证照</button></nav><main><div id="view-trip"><section class="intro"><div><p class="eyebrow">26 SEP — 06 OCT 2026 · NORWAY</p><h1>挪威，逐日旅行手册</h1><p>奥斯陆 · 斯塔万格 · 卑尔根 · 罗弗敦</p><p class="meta">境内 11 天 10 晚 · 含 9/25 出发与 10/7 返抵</p></div><div id="photo"></div></section><nav id="days-nav" aria-label="按日期跳转"></nav><div id="days"></div><p id="storage-note" role="status">清单及打卡状态保存在当前浏览器，不跨设备同步。</p><dialog id="item-dialog"><form id="item-form"><h2 id="dialog-title">添加打卡</h2><label for="item-text">打卡内容</label><input id="item-text" maxlength="180" required autocomplete="off"><label id="item-time-label" for="item-time" hidden>时间（如：早上；可留空）</label><input id="item-time" hidden autocomplete="off"><p id="edit-error" role="alert"></p><div class="dialog-actions"><button type="button" id="cancel-edit">取消</button><button type="submit" class="primary">保存</button></div></form></dialog></div><section id="view-lang" hidden>
 <div class="view-head"><p class="eyebrow">栏目二 · 常用</p><h2>挪威语应急手册</h2><p class="meta">音标为东挪威语（Bokmål）常见读法；中文谐音仅作辅助，以音标与音频为准。</p></div>
-<div class="sheet"><h3>五句核心</h3><div class="audio-box"><audio id="lang-audio" controls preload="metadata"></audio></div>
-<table class="phrase"><tr><th>中文</th><th>挪威语</th><th>音标 IPA</th><th>谐音（约）</th></tr>
-<tr><td>我们要办理入住。</td><td class="no">Vi vil gjerne sjekke inn.</td><td class="ipa">/viː vɪl ˈjæːrnə ˈʂɛkə ɪn/</td><td class="ym">vi 维尔 耶尔讷 谢克 因</td></tr>
-<tr><td>我们能说英语吗？</td><td class="no">Kan vi snakke engelsk?</td><td class="ipa">/kɑn viː ˈsnɑkːə ˈɛŋəlsk/</td><td class="ym">康 vi 斯纳克 恩尔斯克</td></tr>
-<tr><td>我们只学了一点挪威语。</td><td class="no">Vi har bare lært litt norsk.</td><td class="ipa">/viː hɑːr ˈbɑːrə læːʈ lɪt nɔʂk/</td><td class="ym">vi 哈尔 巴拉 莱尔特 利特 诺什克</td></tr>
-<tr><td>洗手间在哪里？</td><td class="no">Hvor er toalettet?</td><td class="ipa">/ʋuːr æːr tʊɑˈlɛtə/</td><td class="ym">沃 埃尔 图阿莱特</td></tr>
-<tr><td>抱歉，我们只会一点挪威语。</td><td class="no">Beklager, vi snakker bare litt norsk.</td><td class="ipa">/bəˈklɑːgər viː ˈsnɑkər ˈbɑːrə lɪt nɔʂk/</td><td class="ym">贝克拉格 vi 斯纳克 巴拉 利特 诺什克</td></tr>
+<div class="sheet"><h3>五句核心</h3><p class="meta" style="margin:2px 0 10px">每句旁的点播按钮取自同一段录音的分句，点哪句播哪句。</p>
+<table class="phrase"><tr><th>中文</th><th>挪威语（点 ▶ 听发音）</th><th>音标 IPA</th><th>谐音（约）</th></tr>
+<tr><td>我们要办理入住。</td><td class="no"><button type="button" class="say" data-s="0" data-e="1.25" aria-label="播放">▶</button>Vi vil gjerne sjekke inn.</td><td class="ipa">/viː vɪl ˈjæːrnə ˈʂɛkə ɪn/</td><td class="ym">vi 维尔 耶尔讷 谢克 因</td></tr>
+<tr><td>我们能说英语吗？</td><td class="no"><button type="button" class="say" data-s="2.15" data-e="3.3" aria-label="播放">▶</button>Kan vi snakke engelsk?</td><td class="ipa">/kɑn viː ˈsnɑkːə ˈɛŋəlsk/</td><td class="ym">康 vi 斯纳克 恩尔斯克</td></tr>
+<tr><td>我们只学了一点挪威语。</td><td class="no"><button type="button" class="say" data-s="4.3" data-e="5.5" aria-label="播放">▶</button>Vi har bare lært litt norsk.</td><td class="ipa">/viː hɑːr ˈbɑːrə læːʈ lɪt nɔʂk/</td><td class="ym">vi 哈尔 巴拉 莱尔特 利特 诺什克</td></tr>
+<tr><td>洗手间在哪里？</td><td class="no"><button type="button" class="say" data-s="6.5" data-e="7.6" aria-label="播放">▶</button>Hvor er toalettet?</td><td class="ipa">/ʋuːr æːr tʊɑˈlɛtə/</td><td class="ym">沃 埃尔 图阿莱特</td></tr>
+<tr><td>抱歉，我们只会一点挪威语。</td><td class="no"><button type="button" class="say" data-s="8.5" data-e="10.45" aria-label="播放">▶</button>Beklager, vi snakker bare litt norsk.</td><td class="ipa">/bəˈklɑːgər viː ˈsnɑkər ˈbɑːrə lɪt nɔʂk/</td><td class="ym">贝克拉格 vi 斯纳克 巴拉 利特 诺什克</td></tr>
 </table></div>
 <div class="sheet"><h3>问候与礼貌</h3>
 <table class="phrase"><tr><th>中文</th><th>挪威语</th><th>音标 IPA</th><th>谐音（约）</th></tr>
@@ -223,7 +223,22 @@ body.js .rv.in{opacity:1;transform:none}
 <tr><td>再见</td><td class="no">Ha det bra</td><td class="ipa">/hɑ dæ braː/</td><td class="ym">哈 德 布拉</td></tr>
 <tr><td>是 / 不是</td><td class="no">Ja / Nei</td><td class="ipa">/jɑː/ /næɪ/</td><td class="ym">亚 / 内</td></tr>
 </table></div>
-<div class="sheet"><h3>餐厅点餐</h3>
+<div class="sheet"><h3>常用词速查</h3>
+<table class="phrase"><tr><th>中文</th><th>挪威语</th><th>音标 IPA</th><th>谐音（约）</th></tr>
+<tr><td>请 / 不客气</td><td class="no">Vær så god</td><td class="ipa">/ʋæːr soː ɡuː/</td><td class="ym">维尔 索 古</td></tr>
+<tr><td>这里 / 那里</td><td class="no">her / der</td><td class="ipa">/hæːr/ /dæːr/</td><td class="ym">海尔 / 德尔</td></tr>
+<tr><td>今天 / 明天</td><td class="no">i dag / i morgen</td><td class="ipa">/i dɑɡ/ /i ˈmɔrŋən/</td><td class="ym">伊 达格 / 伊 莫恩</td></tr>
+<tr><td>现在</td><td class="no">nå</td><td class="ipa">/nuː/</td><td class="ym">努</td></tr>
+<tr><td>好的</td><td class="no">bra</td><td class="ipa">/brɑː/</td><td class="ym">布拉</td></tr>
+<tr><td>大 / 小</td><td class="no">stor / liten</td><td class="ipa">/stuːr/ /ˈliːtən/</td><td class="ym">斯图尔 / 利滕</td></tr>
+<tr><td>开 / 关</td><td class="no">åpen / stengt</td><td class="ipa">/ˈoːpən/ /stɛŋt/</td><td class="ym">奥彭 / 斯滕特</td></tr>
+<tr><td>热 / 冷</td><td class="no">varm / kald</td><td class="ipa">/ʋɑrm/ /kɑld/</td><td class="ym">瓦姆 / 卡尔德</td></tr>
+<tr><td>入口 / 出口</td><td class="no">inngang / utgang</td><td class="ipa">/ˈɪnɡɑŋ/ /ˈʉtɡɑŋ/</td><td class="ym">因冈 / 乌特冈</td></tr>
+<tr><td>票</td><td class="no">billett</td><td class="ipa">/bɪˈlɛt/</td><td class="ym">比利特</td></tr>
+<tr><td>机场</td><td class="no">flyplass</td><td class="ipa">/ˈflyːplɑs/</td><td class="ym">弗吕普拉斯</td></tr>
+<tr><td>火车站</td><td class="no">togstasjon</td><td class="ipa">/ˈtuːɡstɑʂuːn/</td><td class="ym">图格斯达松</td></tr>
+<tr><td>免费</td><td class="no">gratis</td><td class="ipa">/ˈɡrɑːtis/</td><td class="ym">格拉蒂斯</td></tr>
+</table></div><div class="sheet"><h3>餐厅点餐</h3>
 <table class="phrase"><tr><th>中文</th><th>挪威语</th><th>音标 IPA</th><th>谐音（约）</th></tr>
 <tr><td>四人桌，谢谢</td><td class="no">Et bord for fire, takk.</td><td class="ipa">/ɛt bord fɔr fiːrə tɑk/</td><td class="ym">埃特 博 福 菲勒 塔克</td></tr>
 <tr><td>能给我们菜单吗？</td><td class="no">Kan vi få menyen?</td><td class="ipa">/kɑn vi foː mɛˈnyːən/</td><td class="ym">康 vi 福 梅宁</td></tr>
@@ -232,7 +247,21 @@ body.js .rv.in{opacity:1;transform:none}
 <tr><td>能给我们水吗？</td><td class="no">Kan vi få vann?</td><td class="ipa">/kɑn vi foː ʋɑn/</td><td class="ym">康 vi 福 万</td></tr>
 <tr><td>很好吃</td><td class="no">Det smaker godt.</td><td class="ipa">/dɛ ˈsmɑːkər ɡot/</td><td class="ym">德 斯马克 古特</td></tr>
 </table></div>
-<div class="sheet"><h3>购物与结账</h3>
+<div class="sheet"><h3>饮品点单</h3>
+<table class="phrase"><tr><th>中文</th><th>挪威语</th><th>音标 IPA</th><th>谐音（约）</th></tr>
+<tr><td>咖啡</td><td class="no">kaffe</td><td class="ipa">/ˈkɑfːə/</td><td class="ym">卡费</td></tr>
+<tr><td>茶</td><td class="no">te</td><td class="ipa">/teː/</td><td class="ym">特</td></tr>
+<tr><td>热巧克力（Fjak 同款）</td><td class="no">varm sjokolade</td><td class="ipa">/ʋɑrm ʂʊkʊˈlɑːdə/</td><td class="ym">瓦姆 许库拉得</td></tr>
+<tr><td>啤酒</td><td class="no">øl</td><td class="ipa">/øːl/</td><td class="ym">厄尔</td></tr>
+<tr><td>红酒</td><td class="no">rødvin</td><td class="ipa">/ˈrøːdʋiːn/</td><td class="ym">勒德温</td></tr>
+<tr><td>白葡萄酒</td><td class="no">hvitvin</td><td class="ipa">/ˈʋiːtʋiːn/</td><td class="ym">维特温</td></tr>
+<tr><td>水</td><td class="no">vann</td><td class="ipa">/ʋɑn/</td><td class="ym">万</td></tr>
+<tr><td>气泡水</td><td class="no">mineralvann</td><td class="ipa">/mɪnəˈrɑːlʋɑn/</td><td class="ym">米纳拉尔万</td></tr>
+<tr><td>牛奶</td><td class="no">melk</td><td class="ipa">/mɛlk/</td><td class="ym">梅尔克</td></tr>
+<tr><td>苹果汁</td><td class="no">eplejuice</td><td class="ipa">/ˈɛpləjʉs/</td><td class="ym">埃普勒尤斯</td></tr>
+<tr><td>一杯……</td><td class="no">en …, takk</td><td class="ipa">/eːn … tɑk/</td><td class="ym">恩 …… 塔克</td></tr>
+<tr><td>再来一杯</td><td class="no">en til, takk</td><td class="ipa">/eːn tiːl tɑk/</td><td class="ym">恩 蒂尔 塔克</td></tr>
+</table></div><div class="sheet"><h3>购物与结账</h3>
 <table class="phrase"><tr><th>中文</th><th>挪威语</th><th>音标 IPA</th><th>谐音（约）</th></tr>
 <tr><td>这个多少钱？</td><td class="no">Hvor mye koster det?</td><td class="ipa">/ʋuːr ˈmyːə ˈkɔstər dɛ/</td><td class="ym">沃 米厄 科斯特 德</td></tr>
 <tr><td>可以刷卡吗？</td><td class="no">Kan jeg betale med kort?</td><td class="ipa">/kɑn jæɪ bəˈtɑːlə me kɔrt/</td><td class="ym">康 耶 贝塔勒 梅 科特</td></tr>
@@ -313,13 +342,17 @@ function closePanel(){panel.hidden=true;document.body.classList.remove('tab-open
 function openPanel(){panel.hidden=false;document.body.classList.add('tab-open');tog.setAttribute('aria-expanded','true');clearTimeout(timer);timer=setTimeout(()=>{closePanel();if(cur!=='trip')showTab('trip')},5000)}
 tog.addEventListener('click',()=>{panel.hidden?openPanel():closePanel()});
 btns.forEach(b=>b.addEventListener('click',()=>{clearTimeout(timer);timer=null;showTab(b.dataset.tab);closePanel()}));
-panel.addEventListener('click',()=>{clearTimeout(timer);timer=setTimeout(()=>{closePanel();if(cur!=='trip')showTab('trip')},5000)});
+panel.addEventListener('click',(e)=>{if(e.target.closest('button'))return;clearTimeout(timer);timer=setTimeout(()=>{closePanel();if(cur!=='trip')showTab('trip')},5000)});
 window.__showTab=showTab;
 if(location.hash==='#tab-lang'||location.hash==='#tab-docs')showTab(location.hash.slice(5));
 })();
 
 /* ===== 常用：音频与翻译 ===== */
-(()=>{const a=document.getElementById('lang-audio');if(a&&window.LANG_AUDIO_B64)a.src='data:audio/mpeg;base64,'+window.LANG_AUDIO_B64;
+(()=>{if(window.LANG_AUDIO_B64){const au=new Audio('data:audio/mpeg;base64,'+window.LANG_AUDIO_B64);let onBtn=null;
+document.querySelectorAll('.say').forEach(btn=>{btn.addEventListener('click',()=>{if(onBtn&&onBtn!==btn)onBtn.classList.remove('on');
+au.pause();au.currentTime=parseFloat(btn.dataset.s);const end=parseFloat(btn.dataset.e);
+const h=()=>{if(au.currentTime>=end){au.pause();au.removeEventListener('timeupdate',h);btn.classList.remove('on');if(onBtn===btn)onBtn=null}};
+au.addEventListener('timeupdate',h);au.play().catch(()=>{});btn.classList.add('on');onBtn=btn})})}
 const inp=document.getElementById('tr-in'),out=document.getElementById('tr-out'),go=document.getElementById('tr-go'),gl=document.getElementById('tr-google');
 const hasCJK=s=>/[぀-ヿ㐀-鿿]/.test(s);
 async function tr(){const q=inp.value.trim();if(!q){out.innerHTML='';return}out.textContent='翻译中…';
