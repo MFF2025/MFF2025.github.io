@@ -181,7 +181,13 @@ table.doc td.mono{font-family:var(--mono);font-size:13px;overflow-wrap:anywhere}
 .swipe-under .u-del{background:var(--accent)}
 .swipe.open .swipe-over{transform:translateX(-136px)}
 .check-row.is-done .swipe-over{background:var(--sheet-2)}
-@media(hover:hover){.swipe:hover .swipe-over{transform:translateX(-136px)}}
+@media(hover:hover){
+.swipe-under{width:auto;top:50%;right:6px;bottom:auto;transform:translateY(-50%);opacity:0;pointer-events:none;transition:opacity .25s var(--ease);z-index:2}
+.swipe-under button{flex:none;width:auto;padding:7px 13px;font-size:12px;letter-spacing:1.5px;border-radius:2px;margin-left:6px}
+.swipe:hover .swipe-under,.swipe:focus-within .swipe-under{opacity:1;pointer-events:auto}
+.swipe-under button:hover{filter:brightness(1.15)}
+.swipe.open .swipe-over{transform:none}
+}
 .timeline li{position:relative}
 .timeline li .item-actions{position:absolute;right:2px;top:5px;background:var(--sheet);opacity:0;transform:translateY(-3px);transition:opacity .3s var(--ease),transform .3s var(--ease)}
 .timeline li:hover .item-actions,.timeline li:focus-within .item-actions{opacity:1;transform:none}
