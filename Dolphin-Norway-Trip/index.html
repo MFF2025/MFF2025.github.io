@@ -57,7 +57,7 @@ body{counter-reset:day}
 .columns{display:grid;grid-template-columns:1.08fr 1fr;gap:40px}
 /* 行程时间轴 */
 .timeline{list-style:none;padding:0;margin:0}
-.timeline li{display:grid;grid-template-columns:112px 1fr;gap:14px;padding:12px 2px;border-bottom:1px solid var(--line);transition:background .3s var(--ease)}
+.timeline li{padding:12px 2px;border-bottom:1px solid var(--line);transition:background .3s var(--ease)}.tl-grid{display:grid;grid-template-columns:112px 1fr;gap:14px}
 .timeline li:hover{background:rgba(26,36,30,.035)}
 .timeline li:last-child{border-bottom:0}
 .timeline time{font-family:var(--mono);font-size:12.5px;font-weight:600;line-height:2.05;letter-spacing:.3px;color:var(--ink-2)}
@@ -172,6 +172,16 @@ table.doc td.mono{font-family:var(--mono);font-size:13px;overflow-wrap:anywhere}
 #tr-out .sub{font-size:13px;color:var(--ink-2);margin-left:8px}
 #tr-google{display:inline-block;margin-top:4px}
 /* 行程时间轴编辑 */
+/* 左划操作（微信式） */
+.swipe{position:relative;overflow:hidden;border-radius:2px}
+.swipe-over{position:relative;z-index:1;background:var(--sheet);transition:transform .32s var(--ease)}
+.swipe-under{position:absolute;top:0;right:0;bottom:0;width:136px;display:flex;z-index:0}
+.swipe-under button{flex:1 1 0;border:0;border-radius:0;background:transparent;color:#fff;font-size:13px;letter-spacing:3px;font-family:var(--sans)}
+.swipe-under .u-edit{background:#7d8a80}
+.swipe-under .u-del{background:var(--accent)}
+.swipe.open .swipe-over{transform:translateX(-136px)}
+.check-row.is-done .swipe-over{background:var(--sheet-2)}
+@media(hover:hover){.swipe:hover .swipe-over{transform:translateX(-136px)}}
 .timeline li{position:relative}
 .timeline li .item-actions{position:absolute;right:2px;top:5px;background:var(--sheet);opacity:0;transform:translateY(-3px);transition:opacity .3s var(--ease),transform .3s var(--ease)}
 .timeline li:hover .item-actions,.timeline li:focus-within .item-actions{opacity:1;transform:none}
@@ -200,7 +210,7 @@ body.js .rv.in{opacity:1;transform:none}
 .tips strong{color:var(--ink);font-family:var(--mono);font-size:12.5px;letter-spacing:1.5px;margin-right:10px}
 .source-note{font-size:12.5px;color:var(--ink-3);margin-top:16px}
 @media(max-width:900px){.intro{grid-template-columns:1fr;gap:20px;padding:44px 0 32px}.columns{grid-template-columns:1fr;gap:0}}
-@media(max-width:700px){main{padding:0 16px}.top{padding:0 16px}h1{font-size:34px;letter-spacing:2px}#photo img{height:160px}.day-head{padding:20px 16px;gap:14px;align-items:flex-start}.day-head h2{font-size:21px}.date-box{padding:8px 12px}.date-box strong{font-size:22px}.day-body{padding:0 16px 22px}.timeline li{grid-template-columns:92px 1fr;gap:8px}.timeline time{font-size:11.5px}.links a{padding:9px 12px}.day{margin:26px 0}.hotel{padding:16px}.map-canvas{height:240px}}
+@media(max-width:700px){main{padding:0 16px}.top{padding:0 16px}h1{font-size:34px;letter-spacing:2px}#photo img{height:160px}.day-head{padding:20px 16px;gap:14px;align-items:flex-start}.day-head h2{font-size:21px}.date-box{padding:8px 12px}.date-box strong{font-size:22px}.day-body{padding:0 16px 22px}.tl-grid{grid-template-columns:92px 1fr;gap:8px}.timeline time{font-size:11.5px}.links a{padding:9px 12px}.day{margin:26px 0}.hotel{padding:16px}.map-canvas{height:240px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}body.js .rv,body.js .intro [data-hero]{opacity:1;transform:none;transition:none}.map-inner{transition:none}}
 @media(max-width:640px){.sheet{padding:16px 14px;margin:14px 0}
 table.phrase{font-size:13.5px}
@@ -330,7 +340,7 @@ const DAYS=[
 </script><script src="photo.js"></script><script src="lang-audio.js"></script><script>const KEY='norway-2026-checkins-v1',LISTKEY='norway-2026-lists-v1';let state={},lists={},storageOK=true;try{state=JSON.parse(localStorage.getItem(KEY)||'{}');lists=JSON.parse(localStorage.getItem(LISTKEY)||'{}');if(!state||typeof state!=='object'||Array.isArray(state))state={};if(!lists||typeof lists!=='object'||Array.isArray(lists))lists={}}catch{state={};lists={};storageOK=false}
 for(const d of DAYS){if(!Array.isArray(lists[d.id]))lists[d.id]=d.checks.map((text,i)=>({id:d.id+'-'+i,text}));else lists[d.id]=lists[d.id].filter(x=>x&&typeof x.id==='string'&&typeof x.text==='string')}
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const link=(u,t)=>`<a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a>`;const search=q=>'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q);const route=d=>'https://www.google.com/maps/dir/?api=1&origin='+encodeURIComponent(d.route[0])+'&destination='+encodeURIComponent(d.route.at(-1))+'&travelmode='+d.mode+(d.route.length>2?'&waypoints='+encodeURIComponent(d.route.slice(1,-1).join('|')):'');const allItems=()=>DAYS.flatMap(d=>lists[d.id].map(x=>({...x,date:d.date,day:d.id})));
-function check(x,day){return `<div class="check-row ${state[x.id]?'is-done':''}"><label class="check"><input type="checkbox" data-check="${esc(x.id)}" ${state[x.id]?'checked':''}><span class="label-text">${esc(x.text)}</span></label><div class="item-actions"><button type="button" data-edit="${esc(x.id)}" data-day="${day}" aria-label="编辑：${esc(x.text)}">编辑</button><button type="button" data-delete="${esc(x.id)}" data-day="${day}" aria-label="删除：${esc(x.text)}">删除</button></div></div>`}
+function check(x,day){return `<div class="check-row ${state[x.id]?'is-done':''}"><div class="swipe"><div class="swipe-under"><button type="button" class="u-edit" data-edit="${esc(x.id)}" data-day="${day}">编辑</button><button type="button" class="u-del" data-delete="${esc(x.id)}" data-day="${day}">删除</button></div><div class="swipe-over"><label class="check"><input type="checkbox" data-check="${esc(x.id)}" ${state[x.id]?'checked':''}><span class="label-text">${esc(x.text)}</span></label></div></div></div>`}
 function hotel(id){const h=HOTELS[id];return `<section class="hotel"><p class="eyebrow">今晚入住 · ${h.stay}</p><h3>${h.name}</h3><p>${h.address}</p><p><strong>${h.time}</strong></p><p>确认号：<strong>${h.conf}</strong></p><p>${h.meal}</p><p>${h.room}</p><div class="links">${link(h.web,'酒店官网')}<a href="tel:${h.phone}">拨打 ${h.phone}</a><a href="mailto:${h.email}">邮件联系</a>${link(search(h.name+' '+h.address),'导航到酒店')}</div></section>`}
 document.querySelector('#days-nav').innerHTML=DAYS.map(d=>`<a href="#day-${d.id}">${d.date}</a>`).join('');document.querySelector('#days').innerHTML=DAYS.map(d=>`<article class="day" id="day-${d.id}"><div class="day-head"><div class="date-box"><strong>${d.date}</strong><small>${d.week}</small></div><div><h2>${d.title}</h2><p class="subtitle">${d.sub}</p></div></div><div class="day-body"><div class="columns"><section><h3>主要行程安排</h3><ul class="timeline"><div data-plan="${d.id}"></div></ul></section><section><h3 class="section-title">重点打卡清单 <span class="day-count" data-count="${d.id}"></span></h3><div data-list="${d.id}"></div><button class="add-item" type="button" data-add="${d.id}">＋ 添加打卡</button></section></div><section class="advice"><h3>具体细项与建议</h3>${d.tips.map(t=>`<p><strong>${t[0]}：</strong>${t[1]}</p>`).join('')}</section>${d.hotel?hotel(d.hotel):''}<details class="map-panel" data-map="${d.id}"><summary>查看当日真实地图与路线</summary><div class="map-inner"><label for="map-${d.id}">地图地点</label><select id="map-${d.id}" data-map-select="${d.id}">${d.points.map((p,i)=>`<option value="${i}">${p[0]}</option>`).join('')}</select><div class="map-canvas"></div><p class="map-note">可缩放、拖动的 OpenStreetMap 实际底图。地点标记为概略位置，路线以导航结果为准。</p><div class="links">${link(route(d),'打开当日路线')}${link(search(d.points[0][0]+' Norway'),'打开所选地点')}</div>${d.id==='0927'?`<div class="links">${link('https://www.google.com/maps/dir/?api=1&origin=Hotell+Bondeheimen+Oslo&destination=TORP+Sandefjord+Airport&travelmode=transit','奥斯陆酒店 → TRF 公共交通')}${link('https://torp.no/en/to-and-from/train/','Torp 官方接驳说明')}</div>`:''}</div></details></div></article>`).join('');
 function renderList(day){document.querySelector(`[data-list="${day}"]`).innerHTML=lists[day].length?lists[day].map(x=>check(x,day)).join(''):'<p class="empty">这一天还没有打卡项目，点击下方添加。</p>'}
@@ -399,7 +409,7 @@ const tpl=d.plan.map((p,i)=>({p:p,i:i})).filter(x=>!e.del.includes(x.i)).map(x=>
 return tpl.concat((e.add||[]).map(a=>({key:a.id,t:a.t,txt:a.txt,flight:false})))}
 window.renderPlan=function(day){const el=document.querySelector('[data-plan="'+day+'"]');if(!el)return;
 const items=planItems(day);
-el.innerHTML='<ul class="timeline">'+items.map(it=>'<li class="'+(it.flight?'flight':'')+'"><time>'+esc(it.t||'—')+'</time><p>'+esc(it.txt)+'</p><div class="item-actions"><button type="button" data-plan-edit="'+day+'|'+esc(it.key)+'">编辑</button><button type="button" data-plan-del="'+day+'|'+esc(it.key)+'">删除</button></div></li>').join('')+'</ul><button class="add-item" type="button" data-plan-add="'+day+'">＋ 添加行程</button>'};
+el.innerHTML='<ul class="timeline">'+items.map(it=>'<li class="'+(it.flight?'flight':'')+'"><div class="swipe"><div class="swipe-under"><button type="button" class="u-edit" data-plan-edit="'+day+'|'+esc(it.key)+'">编辑</button><button type="button" class="u-del" data-plan-del="'+day+'|'+esc(it.key)+'">删除</button></div><div class="swipe-over tl-grid"><time>'+esc(it.t||'—')+'</time><p>'+esc(it.txt)+'</p></div></div></li>').join('')+'</ul><button class="add-item" type="button" data-plan-add="'+day+'">＋ 添加行程</button>'};
 function savePlanEdits(){try{localStorage.setItem('norway-2026-plan-v1',JSON.stringify(planEdits))}catch(e){}if(typeof save==='function')save()}
 const pdialog=()=>document.getElementById('item-dialog');
 function planEditor(day,key){window.__planEditing={day,key};const dlg=pdialog();
@@ -466,5 +476,23 @@ let lastApplied=0;
 window.__afterUpdate=()=>{};
 setTimeout(()=>{poll();setInterval(poll,60000)},1500);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)poll()});
+
+/* ===== 左划手势（微信式） ===== */
+(()=>{const W=136;let active=null,sx=0,sy=0,base=0,locked=false,dx=0;
+const overOf=sw=>sw.querySelector('.swipe-over');
+function closeAll(except){document.querySelectorAll('.swipe.open').forEach(s=>{if(s!==except)s.classList.remove('open')})}
+document.addEventListener('touchstart',e=>{const sw=e.target.closest('.swipe');if(!sw)return;active=sw;sx=e.touches[0].clientX;sy=e.touches[0].clientY;dx=0;locked=false;base=sw.classList.contains('open')?-W:0},{passive:true});
+document.addEventListener('touchmove',e=>{if(!active)return;const x=e.touches[0].clientX,y=e.touches[0].clientY;
+if(!locked){if(Math.abs(x-sx)<9&&Math.abs(y-sy)<9)return;if(Math.abs(y-sy)>=Math.abs(x-sx)){active=null;return}locked=true;closeAll(active)}
+dx=x-sx;let tx=base+dx;if(tx>0)tx*=0.35;if(tx<-W)tx=-W+(tx+W)*0.35;
+const over=overOf(active);over.style.transition='none';over.style.transform='translateX('+tx+'px)';
+if(locked&&e.cancelable)e.preventDefault()},{passive:false});
+document.addEventListener('touchend',e=>{if(!active)return;const sw=active;active=null;const over=overOf(sw);over.style.transition='';over.style.transform='';
+if(!locked){if(sw.classList.contains('open')&&!e.target.closest('.swipe-under')){sw.classList.remove('open');sw._sup=true;setTimeout(()=>{sw._sup=false},450)}return}
+const endX=e.changedTouches.length?e.changedTouches[0].clientX:sx+dx,total=base+(endX-sx);
+if(total<-W*0.38||(endX-sx)<-48)sw.classList.add('open');else sw.classList.remove('open')});
+document.addEventListener('touchcancel',()=>{if(active){const o=overOf(active);o.style.transform='';o.style.transition='';active=null}});
+document.addEventListener('click',e=>{const sw=e.target.closest('.swipe');if(sw&&sw._sup){e.preventDefault();e.stopPropagation();sw._sup=false;return}if(!sw)closeAll()},true);
+})();
 </script>
 </body></html>
