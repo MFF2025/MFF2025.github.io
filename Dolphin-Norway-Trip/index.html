@@ -466,13 +466,13 @@ document.getElementById('cancel-edit').addEventListener('click',()=>{window.__pl
 for(const d of DAYS)renderPlan(d.id);
 /* ===== 跨设备同步（ntfy 匿名主题，数据为非敏感行程文本） ===== */
 const NTFY='https://ntfy.sh/dolphin-norway-2026-ljf';
-let delDefaults={},syncState={chk:{},items:{},del:{},plan:{}},lastSync=0,pushTimer=null;
+let delDefaults={},syncState={chk:{},items:{},del:{},plan:{}},lastSync=0,pushTimer=null,lastApplied=0,lastLocalPush=0;
 try{delDefaults=JSON.parse(localStorage.getItem('norway-2026-del-v1')||'{}')}catch(e){}
 window.__recordDel=(day,id)=>{(delDefaults[day]=delDefaults[day]||[]).push(id);try{localStorage.setItem('norway-2026-del-v1',JSON.stringify(delDefaults))}catch(e){}};
 function collectSync(){const s={v:3,upd:Date.now(),chk:{},items:{},del:{},plan:planEdits};
 for(const d of DAYS){s.items[d.id]=lists[d.id].filter(x=>x.id.indexOf('-custom-')>-1).map(x=>({id:x.id,text:x.text}));
 s.del[d.id]=delDefaults[d.id]||[];
-for(const x of lists[d.id])if(state[x.id])s.chk[x.id]=1}
+for(const x of lists[d.id])s.chk[x.id]=state[x.id]?1:0}
 return s}
 function applySync(s,remote){if(!s||s.v!==3)return false;let changed=false;
 for(const d of DAYS){const rs=s.items[d.id]||[],ls=lists[d.id]||[];
@@ -487,18 +487,18 @@ for(const day in s.plan){const pe=planEdits[day]||(planEdits[day]={del:[],add:[]
 for(const i of (rp.del||[]))if(!pe.del.includes(i)){pe.del.push(i);changed=true}
 for(const a of (rp.add||[])){const ex=pe.add.find(x=>x.id===a.id);if(!ex){pe.add.push({id:a.id,t:a.t,txt:a.txt});changed=true}else if(remote&&(ex.txt!==a.txt||ex.t!==a.t)){ex.txt=a.txt;ex.t=a.t;changed=true}}}
 return changed}
-window.__syncPush=function(){clearTimeout(pushTimer);pushTimer=setTimeout(()=>{const s=collectSync();
+window.__syncPush=function(){clearTimeout(pushTimer);pushTimer=setTimeout(()=>{const s=collectSync();lastLocalPush=s.upd;
 fetch(NTFY,{method:'POST',body:JSON.stringify(s)}).then(()=>{lastSync=Date.now();if(typeof update==='function')update()}).catch(()=>{if(typeof update==='function')update()})},800)};
 window.__syncStatus=()=>lastSync?'（最近同步 '+new Date(lastSync).getHours()+':'+String(new Date(lastSync).getMinutes()).padStart(2,'0')+'）':'（同步初始化中…）';
-async function poll(){try{const r=await fetch(NTFY+'/json?poll=1');const arr=await r.json();let best=null;
-for(const m of arr){try{const s=JSON.parse(m.message);if(s&&s.v===3&&(!best||s.upd>best.upd))best=s}catch(e){}}
-if(best&&best.upd>lastApplied){const changed=applySync(best,true);lastApplied=best.upd;lastSync=Date.now();
+function applyRemote(s){if(!s||s.v!==3||s.upd<=lastApplied||s.upd<=lastLocalPush)return;const changed=applySync(s,true);lastApplied=s.upd;lastSync=Date.now();
 try{localStorage.setItem(KEY,JSON.stringify(state));localStorage.setItem(LISTKEY,JSON.stringify(lists));localStorage.setItem('norway-2026-plan-v1',JSON.stringify(planEdits));localStorage.setItem('norway-2026-del-v1',JSON.stringify(delDefaults))}catch(e){}
 for(const d of DAYS){renderList(d.id);renderPlan(d.id)}update()}
-}catch(e){}}
-let lastApplied=0;
+async function poll(){try{const r=await fetch(NTFY+'/json?poll=1');const arr=await r.json();let best=null;
+for(const m of arr){try{const s=JSON.parse(m.message);if(s&&s.v===3&&(!best||s.upd>best.upd))best=s}catch(e){}}
+applyRemote(best)}catch(e){}}
 window.__afterUpdate=()=>{};
 setTimeout(()=>{poll();setInterval(poll,60000)},1500);
+try{const es=new EventSource(NTFY+'/sse');es.onmessage=e=>{try{const m=JSON.parse(e.data);if(m.event!=='message')return;applyRemote(JSON.parse(m.message))}catch(err){}}}catch(e){}
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)poll()});
 
 /* ===== 左划手势（微信式） ===== */
