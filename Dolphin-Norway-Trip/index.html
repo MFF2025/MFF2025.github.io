@@ -137,6 +137,46 @@ dialog input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 1px 
 /* 页脚 */
 footer{padding:12px 0 50px;color:var(--ink-2);font-size:13.5px}
 footer h3{border-bottom:0;color:var(--ink)}
+
+/* ===== 栏目切换 ===== */
+#tab-toggle{background:none;border:0;padding:0;font-family:var(--serif);font-weight:700;font-size:17px;letter-spacing:2px;color:var(--ink)}
+#tab-toggle em{display:inline-block;font-style:normal;color:var(--accent);transition:transform .55s var(--spring)}
+body.tab-open #tab-toggle em{transform:rotateY(180deg)}
+#tab-panel{position:sticky;top:58px;z-index:28;display:flex;gap:10px;justify-content:center;padding:14px 16px;background:rgba(176,198,179,.92);backdrop-filter:saturate(1.3) blur(14px);-webkit-backdrop-filter:saturate(1.3) blur(14px);border-bottom:1px solid var(--line);transform-origin:top;animation:tabIn .45s var(--ease)}
+#tab-panel[hidden]{display:none}
+@keyframes tabIn{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
+#tab-panel button{flex:1 1 0;max-width:220px;border:1px solid var(--line-strong);background:var(--sheet);border-radius:2px;padding:13px 8px;font-size:15px;letter-spacing:4px;font-family:var(--serif);font-weight:700;transition:background .35s var(--ease),color .35s var(--ease)}
+#tab-panel button:hover{border-color:var(--ink)}
+#tab-panel button.active{background:var(--ink);color:var(--sheet);border-color:var(--ink)}
+#view-lang[hidden],#view-docs[hidden]{display:none}
+.view-head{padding:44px 0 8px}
+.view-head h2{font-family:var(--serif);font-size:34px;letter-spacing:2px;margin:10px 0 12px}
+.sheet{background:var(--sheet);border:1px solid var(--line-strong);border-radius:var(--r);padding:22px 26px;margin:20px 0}
+.sheet h3{border-bottom:0;padding-bottom:0;margin:0 0 12px}
+table.phrase{width:100%;border-collapse:collapse;font-size:14.5px}
+table.phrase th{font-size:12px;letter-spacing:2px;color:var(--ink-2);text-align:left;border-bottom:1px solid var(--line-strong);padding:6px 8px;font-weight:650}
+table.phrase td{border-bottom:1px solid var(--line);padding:9px 8px;vertical-align:top}
+table.phrase td.no{font-weight:600}
+table.phrase td.ipa{font-family:var(--mono);font-size:12.5px;color:var(--ink-2);white-space:nowrap}
+table.phrase td.ym{font-size:13px;color:var(--ink-2)}
+table.doc{width:100%;border-collapse:collapse;font-size:14px}
+table.doc th{font-size:12px;letter-spacing:2px;color:var(--ink-2);text-align:left;border-bottom:1px solid var(--line-strong);padding:6px 8px;font-weight:650}
+table.doc td{border-bottom:1px solid var(--line);padding:8px;vertical-align:top}
+table.doc td.mono{font-family:var(--mono);font-size:13px;white-space:nowrap}
+.audio-box{display:flex;align-items:center;gap:14px;margin:4px 0 14px}
+.audio-box audio{height:44px;flex:1}
+.tr-row{display:flex;gap:8px;margin:10px 0 6px}
+.tr-row input{flex:1;min-height:48px;border:1px solid var(--line-strong);border-radius:2px;background:#fff;padding:10px 12px;font-size:16px}
+.tr-row button{border:1px solid var(--line-strong);border-radius:2px;padding:0 22px;min-height:48px;background:var(--ink);color:var(--sheet);letter-spacing:2px}
+#tr-out{font-size:17px;padding:12px 4px;min-height:30px}
+#tr-out .sub{font-size:13px;color:var(--ink-2);margin-left:8px}
+#tr-google{display:inline-block;margin-top:4px}
+/* 行程时间轴编辑 */
+.timeline li{position:relative}
+.timeline li .item-actions{position:absolute;right:2px;top:5px;background:var(--sheet);opacity:0;transform:translateY(-3px);transition:opacity .3s var(--ease),transform .3s var(--ease)}
+.timeline li:hover .item-actions,.timeline li:focus-within .item-actions{opacity:1;transform:none}
+@media(hover:none){.timeline li .item-actions{opacity:1;transform:none}}
+
 /* 自定义光标 */
 body.has-cursor,body.has-cursor a,body.has-cursor button,body.has-cursor summary,body.has-cursor select,body.has-cursor label.check{cursor:none}
 body.has-cursor input,body.has-cursor textarea{cursor:text}
@@ -163,7 +203,59 @@ body.js .rv.in{opacity:1;transform:none}
 @media(max-width:700px){main{padding:0 16px}.top{padding:0 16px}h1{font-size:34px;letter-spacing:2px}#photo img{height:160px}.day-head{padding:20px 16px;gap:14px;align-items:flex-start}.day-head h2{font-size:21px}.date-box{padding:8px 12px}.date-box strong{font-size:22px}.day-body{padding:0 16px 22px}.timeline li{grid-template-columns:92px 1fr;gap:8px}.timeline time{font-size:11.5px}.links a{padding:9px 12px}.day{margin:26px 0}.hotel{padding:16px}.map-canvas{height:240px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}body.js .rv,body.js .intro [data-hero]{opacity:1;transform:none;transition:none}.map-inner{transition:none}}
 @media print{body{background:#fff}.map-canvas,#days-nav,iframe{display:none!important}.day{break-inside:avoid;border-color:#999}}
-</style></head><body><header><div class="top"><a class="brand" href="#"><em>N·</em>挪威旅行手册</a><span class="summary-link">已打卡 <span id="top-count">0</span></span></div></header><main><section class="intro"><div><p class="eyebrow">26 SEP — 06 OCT 2026 · NORWAY</p><h1>挪威，逐日旅行手册</h1><p>奥斯陆 · 斯塔万格 · 卑尔根 · 罗弗敦</p><p class="meta">境内 11 天 10 晚 · 含 9/25 出发与 10/7 返抵</p></div><div id="photo"></div></section><nav id="days-nav" aria-label="按日期跳转"></nav><div id="days"></div><p id="storage-note" role="status">清单及打卡状态保存在当前浏览器，不跨设备同步。</p><dialog id="item-dialog"><form id="item-form"><h2 id="dialog-title">添加打卡</h2><label for="item-text">打卡内容</label><input id="item-text" maxlength="180" required autocomplete="off"><p id="edit-error" role="alert"></p><div class="dialog-actions"><button type="button" id="cancel-edit">取消</button><button type="submit" class="primary">保存</button></div></form></dialog><footer><h3>应急与领事保护</h3><div class="sos-grid"><div class="sos-card"><strong>112</strong><span>报警 · 救援协调</span></div><div class="sos-card"><strong>113</strong><span>医疗急救</span></div><div class="sos-card"><strong>110</strong><span>火警</span></div><div class="sos-card"><strong>120</strong><span>海上救援</span></div><div class="sos-card"><strong>116117</strong><span>非工作时间门诊</span></div><div class="sos-card"><strong>+86-10-12308</strong><span>外交部全球领保</span></div></div><div class="embassy"><p><strong>中国驻挪威大使馆</strong></p><p>领事保护（紧急）：+47 93066621 ｜ 领事咨询：+47 94069628（工作日 9:30—11:30、14:30—16:30）｜ 总机：+47 22492052</p><p>领事部：Inkognitogata 11, 0258 Oslo（证件大厅工作日 9:00—11:30）｜ 领事邮箱：oslo@csm.mfa.gov.cn</p></div><div class="tips"><p><strong>电话区号</strong>挪威国家区号 +47，国内不分城市区号，本地号码即完整 8 位数字，从中国拨打为 00-47-XXXX XXXX；紧急电话免费，无 SIM 卡余额也可拨通。</p><p><strong>漫游权与户外</strong>野外露营须距民居 150 米以上、同一地点帐篷至多连住 2 晚，禁入围栏农田与私人地块；罗弗敦的鳕鱼晾晒架与渔棚多为私人设施，勿攀爬穿行；峡湾山脊常无护栏，勿为拍照翻越；许多小镇禁飞无人机。</p><p><strong>日常禁忌</strong>周日与节假日多数商店关门，需提前备餐；超市 20:00（周末 18:00）后停售酒类，烈酒仅在 Vinmonopolet 国营酒局出售；街道、公园等公共场所禁止饮酒；餐厅小费非惯例，可依服务酌给。</p></div><div class="links"><a href="https://no.china-embassy.gov.cn/lsfw_0/lsbh_134118/" target="_blank" rel="noopener">使馆领事保护页</a><a href="https://www.yr.no/en" target="_blank" rel="noopener">Yr 天气</a><a href="https://www.vegvesen.no/trafikk" target="_blank" rel="noopener">实时路况</a><a href="https://www.vy.no/en" target="_blank" rel="noopener">Vy 列车</a><a href="https://www.skyss.no/en" target="_blank" rel="noopener">卑尔根交通</a><a href="https://visitlofoten.com/en/guide/reinebringen-hike/" target="_blank" rel="noopener">Reinebringen 官方指引</a></div><p class="source-note">以上信息核对日期 2026-09-19，均来自公开官方来源；出行前请再次确认。</p><p id="photo-credit"></p></footer></main><script>const HOTELS={
+</style></head><body><header><div class="top"><button class="brand" id="tab-toggle" aria-expanded="false" title="点击切换栏目"><em>N·</em>挪威旅行手册</button><span class="summary-link">已打卡 <span id="top-count">0</span></span></div></header><nav id="tab-panel" hidden><button type="button" data-tab="trip" class="active">行程</button><button type="button" data-tab="lang">常用</button><button type="button" data-tab="docs">证照</button></nav><main><div id="view-trip"><section class="intro"><div><p class="eyebrow">26 SEP — 06 OCT 2026 · NORWAY</p><h1>挪威，逐日旅行手册</h1><p>奥斯陆 · 斯塔万格 · 卑尔根 · 罗弗敦</p><p class="meta">境内 11 天 10 晚 · 含 9/25 出发与 10/7 返抵</p></div><div id="photo"></div></section><nav id="days-nav" aria-label="按日期跳转"></nav><div id="days"></div><p id="storage-note" role="status">清单及打卡状态保存在当前浏览器，不跨设备同步。</p><dialog id="item-dialog"><form id="item-form"><h2 id="dialog-title">添加打卡</h2><label for="item-text">打卡内容</label><input id="item-text" maxlength="180" required autocomplete="off"><label id="item-time-label" for="item-time" hidden>时间（如：早上；可留空）</label><input id="item-time" hidden autocomplete="off"><p id="edit-error" role="alert"></p><div class="dialog-actions"><button type="button" id="cancel-edit">取消</button><button type="submit" class="primary">保存</button></div></form></dialog></div><section id="view-lang" hidden>
+<div class="view-head"><p class="eyebrow">栏目二 · 常用</p><h2>挪威语应急手册</h2><p class="meta">音标为东挪威语（Bokmål）常见读法；中文谐音仅作辅助，以音标与音频为准。</p></div>
+<div class="sheet"><h3>五句核心</h3><div class="audio-box"><audio id="lang-audio" controls preload="metadata"></audio></div>
+<table class="phrase"><tr><th>中文</th><th>挪威语</th><th>音标 IPA</th><th>谐音（约）</th></tr>
+<tr><td>我们要办理入住。</td><td class="no">Vi vil gjerne sjekke inn.</td><td class="ipa">/viː vɪl ˈjæːrnə ˈʂɛkə ɪn/</td><td class="ym">vi 维尔 耶尔讷 谢克 因</td></tr>
+<tr><td>我们能说英语吗？</td><td class="no">Kan vi snakke engelsk?</td><td class="ipa">/kɑn viː ˈsnɑkːə ˈɛŋəlsk/</td><td class="ym">康 vi 斯纳克 恩尔斯克</td></tr>
+<tr><td>我们只学了一点挪威语。</td><td class="no">Vi har bare lært litt norsk.</td><td class="ipa">/viː hɑːr ˈbɑːrə læːʈ lɪt nɔʂk/</td><td class="ym">vi 哈尔 巴拉 莱尔特 利特 诺什克</td></tr>
+<tr><td>洗手间在哪里？</td><td class="no">Hvor er toalettet?</td><td class="ipa">/ʋuːr æːr tʊɑˈlɛtə/</td><td class="ym">沃 埃尔 图阿莱特</td></tr>
+<tr><td>抱歉，我们只会一点挪威语。</td><td class="no">Beklager, vi snakker bare litt norsk.</td><td class="ipa">/bəˈklɑːgər viː ˈsnɑkər ˈbɑːrə lɪt nɔʂk/</td><td class="ym">贝克拉格 vi 斯纳克 巴拉 利特 诺什克</td></tr>
+</table></div>
+<div class="sheet"><h3>问候与礼貌</h3>
+<table class="phrase"><tr><th>中文</th><th>挪威语</th><th>音标 IPA</th><th>谐音（约）</th></tr>
+<tr><td>你好</td><td class="no">Hei</td><td class="ipa">/hæɪ/</td><td class="ym">海</td></tr>
+<tr><td>早上好</td><td class="no">God morgen</td><td class="ipa">/ɡuː ˈmɔrŋən/</td><td class="ym">古 莫恩</td></tr>
+<tr><td>谢谢</td><td class="no">Takk</td><td class="ipa">/tɑkː/</td><td class="ym">塔克</td></tr>
+<tr><td>谢谢你的帮助</td><td class="no">Takk for hjelpen</td><td class="ipa">/tɑkː fɔr ˈjælpən/</td><td class="ym">塔克 福 耶尔彭</td></tr>
+<tr><td>不好意思 / 打扰一下</td><td class="no">Unnskyld</td><td class="ipa">/ˈʉnʂʏl/</td><td class="ym">翁许尔</td></tr>
+<tr><td>再见</td><td class="no">Ha det bra</td><td class="ipa">/hɑ dæ braː/</td><td class="ym">哈 德 布拉</td></tr>
+<tr><td>是 / 不是</td><td class="no">Ja / Nei</td><td class="ipa">/jɑː/ /næɪ/</td><td class="ym">亚 / 内</td></tr>
+</table></div>
+<div class="sheet"><h3>餐厅点餐</h3>
+<table class="phrase"><tr><th>中文</th><th>挪威语</th><th>音标 IPA</th><th>谐音（约）</th></tr>
+<tr><td>四人桌，谢谢</td><td class="no">Et bord for fire, takk.</td><td class="ipa">/ɛt bord fɔr fiːrə tɑk/</td><td class="ym">埃特 博 福 菲勒 塔克</td></tr>
+<tr><td>能给我们菜单吗？</td><td class="no">Kan vi få menyen?</td><td class="ipa">/kɑn vi foː mɛˈnyːən/</td><td class="ym">康 vi 福 梅宁</td></tr>
+<tr><td>你推荐什么？</td><td class="no">Hva anbefaler du?</td><td class="ipa">/ʋɑ ɑnbəˈfɑːl dʉ/</td><td class="ym">瓦 安贝法勒 杜</td></tr>
+<tr><td>买单</td><td class="no">Kan jeg få regningen?</td><td class="ipa">/kɑn jæɪ foː ræɪˈniŋən/</td><td class="ym">康 耶 福 雷宁恩</td></tr>
+<tr><td>能给我们水吗？</td><td class="no">Kan vi få vann?</td><td class="ipa">/kɑn vi foː ʋɑn/</td><td class="ym">康 vi 福 万</td></tr>
+<tr><td>很好吃</td><td class="no">Det smaker godt.</td><td class="ipa">/dɛ ˈsmɑːkər ɡot/</td><td class="ym">德 斯马克 古特</td></tr>
+</table></div>
+<div class="sheet"><h3>购物与结账</h3>
+<table class="phrase"><tr><th>中文</th><th>挪威语</th><th>音标 IPA</th><th>谐音（约）</th></tr>
+<tr><td>这个多少钱？</td><td class="no">Hvor mye koster det?</td><td class="ipa">/ʋuːr ˈmyːə ˈkɔstər dɛ/</td><td class="ym">沃 米厄 科斯特 德</td></tr>
+<tr><td>可以刷卡吗？</td><td class="no">Kan jeg betale med kort?</td><td class="ipa">/kɑn jæɪ bəˈtɑːlə me kɔrt/</td><td class="ym">康 耶 贝塔勒 梅 科特</td></tr>
+<tr><td>有袋子吗？</td><td class="no">Har dere pose?</td><td class="ipa">/hɑr deːrə ˈpuːsə/</td><td class="ym">哈尔 德尔 波瑟</td></tr>
+</table></div>
+<div class="sheet"><h3>问路与应急</h3>
+<table class="phrase"><tr><th>中文</th><th>挪威语</th><th>音标 IPA</th><th>谐音（约）</th></tr>
+<tr><td>……在哪里？</td><td class="no">Hvor er …?</td><td class="ipa">/ʋuːr æːr/</td><td class="ym">沃 埃尔</td></tr>
+<tr><td>怎么去……？</td><td class="no">Hvordan kommer jeg til …?</td><td class="ipa">/ˈʋuːrdɑn ˈkɔmər jæɪ tɪl/</td><td class="ym">沃丹 科默 耶 蒂尔</td></tr>
+<tr><td>帮帮我！</td><td class="no">Hjelp!</td><td class="ipa">/jælp/</td><td class="ym">耶尔普</td></tr>
+<tr><td>我不懂。</td><td class="no">Jeg forstår ikke.</td><td class="ipa">/jæɪ fɔˈʂtoːr ɪkə/</td><td class="ym">耶 福什托尔 伊克</td></tr>
+<tr><td>一二三四五</td><td class="no">en, to, tre, fire, fem</td><td class="ipa">/eːn tuː treː fiːrə fɛm/</td><td class="ym">恩 图 特雷 菲勒 费姆</td></tr>
+</table></div>
+<div class="sheet"><h3>即时翻译（中 ↔ 挪威语）</h3>
+<div class="tr-row"><input id="tr-in" placeholder="输入中文或挪威语，回车翻译" autocomplete="off"><button type="button" id="tr-go">翻译</button></div>
+<p id="tr-out"></p>
+<a id="tr-google" href="https://translate.google.com/?sl=auto&amp;tl=no&amp;op=translate" target="_blank" rel="noopener">在谷歌翻译中打开 ↗</a>
+<p class="map-note" style="margin-top:10px">谷歌翻译不允许被网页内嵌，这里提供站内即时翻译（MyMemory 免费接口），需要语音朗读或整页翻译时点开上方链接。</p></div>
+</section><section id="view-docs" hidden>
+<div class="view-head"><p class="eyebrow">栏目三 · 证照信息</p><h2>证照与预订信息</h2><p class="meta">护照、机票行程单、驾照翻译件等材料待补充——把文件发给我，会更新到这里。</p></div>
+<div class="sheet"><h3>航班行程单</h3><table class="doc" id="docs-flights"></table></div>
+<div class="sheet"><h3>住宿信息（确认号见各日酒店板块）</h3><table class="doc" id="docs-hotels"></table></div>
+</section><footer><h3>应急与领事保护</h3><div class="sos-grid"><div class="sos-card"><strong>112</strong><span>报警 · 救援协调</span></div><div class="sos-card"><strong>113</strong><span>医疗急救</span></div><div class="sos-card"><strong>110</strong><span>火警</span></div><div class="sos-card"><strong>120</strong><span>海上救援</span></div><div class="sos-card"><strong>116117</strong><span>非工作时间门诊</span></div><div class="sos-card"><strong>+86-10-12308</strong><span>外交部全球领保</span></div></div><div class="embassy"><p><strong>中国驻挪威大使馆</strong></p><p>领事保护（紧急）：+47 93066621 ｜ 领事咨询：+47 94069628（工作日 9:30—11:30、14:30—16:30）｜ 总机：+47 22492052</p><p>领事部：Inkognitogata 11, 0258 Oslo（证件大厅工作日 9:00—11:30）｜ 领事邮箱：oslo@csm.mfa.gov.cn</p></div><div class="tips"><p><strong>电话区号</strong>挪威国家区号 +47，国内不分城市区号，本地号码即完整 8 位数字，从中国拨打为 00-47-XXXX XXXX；紧急电话免费，无 SIM 卡余额也可拨通。</p><p><strong>漫游权与户外</strong>野外露营须距民居 150 米以上、同一地点帐篷至多连住 2 晚，禁入围栏农田与私人地块；罗弗敦的鳕鱼晾晒架与渔棚多为私人设施，勿攀爬穿行；峡湾山脊常无护栏，勿为拍照翻越；许多小镇禁飞无人机。</p><p><strong>日常禁忌</strong>周日与节假日多数商店关门，需提前备餐；超市 20:00（周末 18:00）后停售酒类，烈酒仅在 Vinmonopolet 国营酒局出售；街道、公园等公共场所禁止饮酒；餐厅小费非惯例，可依服务酌给。</p></div><div class="links"><a href="https://no.china-embassy.gov.cn/lsfw_0/lsbh_134118/" target="_blank" rel="noopener">使馆领事保护页</a><a href="https://www.yr.no/en" target="_blank" rel="noopener">Yr 天气</a><a href="https://www.vegvesen.no/trafikk" target="_blank" rel="noopener">实时路况</a><a href="https://www.vy.no/en" target="_blank" rel="noopener">Vy 列车</a><a href="https://www.skyss.no/en" target="_blank" rel="noopener">卑尔根交通</a><a href="https://visitlofoten.com/en/guide/reinebringen-hike/" target="_blank" rel="noopener">Reinebringen 官方指引</a></div><p class="source-note">以上信息核对日期 2026-09-19，均来自公开官方来源；出行前请再次确认。</p><p id="photo-credit"></p></footer></main><script>const HOTELS={
  oslo:{name:'Hotell Bondeheimen',conf:'EXP-2479354548',address:'Kristian IVs gate 2, Oslo',phone:'+4723214100',email:'booking@bondeheimen.com',web:'https://www.bondeheimen.no/en',stay:'9/26—9/27 · 1 晚',time:'15:00 后入住 · 次日 12:00 前退房',meal:'含 9/27 四人早餐',room:'家庭房：大床＋沙发床。早到先寄存行李，提前入住待酒店确认。'},
  base:{name:'Preikestolen Hotel & BaseCamp',conf:'94563115',address:'Preikestolvegen 521, Strand',phone:'+4751742074',email:'booking@preikestolenbasecamp.com',web:'https://preikestolenbasecamp.com/en/',stay:'9/27—9/28 · 1 晚',time:'16:00—23:00 入住 · 次日 10:30 前退房',meal:'含 9/28 四人早餐',room:'四人独立卫浴房。官网客服电话见下方；订单另列 +47 95231260。订单未注明厨房，做饭条件须直接确认；准备餐厅或即食晚餐备选。'},
  stavanger:{name:'Home Hotel Skagen Brygge',conf:'41615039',address:'Skagenkaien 30, Stavanger',phone:'+4751850000',email:'home.skagenbrygge@strawberry.no',web:'https://www.strawberryhotels.com/hotels/norway/stavanger/home-hotel-skagen-brygge/',stay:'9/28—9/29 · 1 晚',time:'15:00 后入住 · 次日 11:00 前退房',meal:'含 9/28 四人晚餐＋9/29 四人早餐',room:'套房：双人床＋两张单人床。先确认晚餐时间，再安排日落。'},
@@ -188,18 +280,18 @@ const DAYS=[
 {id:'1006',date:'10.6',week:'周二',title:'早餐之后，启程回家',sub:'奥斯陆 → 北京 · 夜航',hotel:null,route:['Best Western Plus Oslo Airport','Oslo Airport'],mode:'driving',points:[['机场酒店片区',60.187,11.069],['奥斯陆机场 OSL',60.1939,11.1004]],plan:[['早上','Best Western Plus 早餐'],['中午','退房，接驳去奥斯陆机场'],['13:30','HU770 · 奥斯陆 OSL 起飞，次日抵达北京','flight']],checks:['酒店早餐','完成值机与托运','搭乘 HU770 返回北京'],tips:[['返程日期','北京到达时间为 10/7 04:30，中国已是第二天。随身保留下一段登机所需证件。']]},
 {id:'1007',date:'10.7',week:'周三',title:'抵达上海，旅途收尾',sub:'北京 → 上海',hotel:null,route:['Beijing Capital Airport','Shanghai Hongqiao Airport'],mode:'transit',points:[['北京首都机场',40.0799,116.6031],['上海虹桥机场',31.1979,121.3363]],plan:[['04:30','HU770 抵达北京首都 T2。','flight'],['04:30—07:00','入境、取行李、海关、重新托运与安检。'],['07:45—10:00','HU7601 · 北京首都 T2 → 上海虹桥 T2','flight']],checks:['北京完成入境与重新托运','平安抵达上海'],tips:[['中转余量','PDF 标注北京行李不直挂，中转 3 小时 15 分钟，下机后优先完成转机流程。'],['完整行程','手写计划止于回北京，机票另含本段北京飞上海，已一并保留。']]}
 ];
-</script><script src="photo.js"></script><script>const KEY='norway-2026-checkins-v1',LISTKEY='norway-2026-lists-v1';let state={},lists={},storageOK=true;try{state=JSON.parse(localStorage.getItem(KEY)||'{}');lists=JSON.parse(localStorage.getItem(LISTKEY)||'{}');if(!state||typeof state!=='object'||Array.isArray(state))state={};if(!lists||typeof lists!=='object'||Array.isArray(lists))lists={}}catch{state={};lists={};storageOK=false}
+</script><script src="photo.js"></script><script src="lang-audio.js"></script><script>const KEY='norway-2026-checkins-v1',LISTKEY='norway-2026-lists-v1';let state={},lists={},storageOK=true;try{state=JSON.parse(localStorage.getItem(KEY)||'{}');lists=JSON.parse(localStorage.getItem(LISTKEY)||'{}');if(!state||typeof state!=='object'||Array.isArray(state))state={};if(!lists||typeof lists!=='object'||Array.isArray(lists))lists={}}catch{state={};lists={};storageOK=false}
 for(const d of DAYS){if(!Array.isArray(lists[d.id]))lists[d.id]=d.checks.map((text,i)=>({id:d.id+'-'+i,text}));else lists[d.id]=lists[d.id].filter(x=>x&&typeof x.id==='string'&&typeof x.text==='string')}
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const link=(u,t)=>`<a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a>`;const search=q=>'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q);const route=d=>'https://www.google.com/maps/dir/?api=1&origin='+encodeURIComponent(d.route[0])+'&destination='+encodeURIComponent(d.route.at(-1))+'&travelmode='+d.mode+(d.route.length>2?'&waypoints='+encodeURIComponent(d.route.slice(1,-1).join('|')):'');const allItems=()=>DAYS.flatMap(d=>lists[d.id].map(x=>({...x,date:d.date,day:d.id})));
 function check(x,day){return `<div class="check-row ${state[x.id]?'is-done':''}"><label class="check"><input type="checkbox" data-check="${esc(x.id)}" ${state[x.id]?'checked':''}><span class="label-text">${esc(x.text)}</span></label><div class="item-actions"><button type="button" data-edit="${esc(x.id)}" data-day="${day}" aria-label="编辑：${esc(x.text)}">编辑</button><button type="button" data-delete="${esc(x.id)}" data-day="${day}" aria-label="删除：${esc(x.text)}">删除</button></div></div>`}
 function hotel(id){const h=HOTELS[id];return `<section class="hotel"><p class="eyebrow">今晚入住 · ${h.stay}</p><h3>${h.name}</h3><p>${h.address}</p><p><strong>${h.time}</strong></p><p>确认号：<strong>${h.conf}</strong></p><p>${h.meal}</p><p>${h.room}</p><div class="links">${link(h.web,'酒店官网')}<a href="tel:${h.phone}">拨打 ${h.phone}</a><a href="mailto:${h.email}">邮件联系</a>${link(search(h.name+' '+h.address),'导航到酒店')}</div></section>`}
-document.querySelector('#days-nav').innerHTML=DAYS.map(d=>`<a href="#day-${d.id}">${d.date}</a>`).join('');document.querySelector('#days').innerHTML=DAYS.map(d=>`<article class="day" id="day-${d.id}"><div class="day-head"><div class="date-box"><strong>${d.date}</strong><small>${d.week}</small></div><div><h2>${d.title}</h2><p class="subtitle">${d.sub}</p></div></div><div class="day-body"><div class="columns"><section><h3>主要行程安排</h3><ul class="timeline">${d.plan.map(p=>`<li class="${p[2]||''}"><time>${p[0]}</time><p>${p[1]}</p></li>`).join('')}</ul></section><section><h3 class="section-title">重点打卡清单 <span class="day-count" data-count="${d.id}"></span></h3><div data-list="${d.id}"></div><button class="add-item" type="button" data-add="${d.id}">＋ 添加打卡</button></section></div><section class="advice"><h3>具体细项与建议</h3>${d.tips.map(t=>`<p><strong>${t[0]}：</strong>${t[1]}</p>`).join('')}</section>${d.hotel?hotel(d.hotel):''}<details class="map-panel" data-map="${d.id}"><summary>查看当日真实地图与路线</summary><div class="map-inner"><label for="map-${d.id}">地图地点</label><select id="map-${d.id}" data-map-select="${d.id}">${d.points.map((p,i)=>`<option value="${i}">${p[0]}</option>`).join('')}</select><div class="map-canvas"></div><p class="map-note">可缩放、拖动的 OpenStreetMap 实际底图。地点标记为概略位置，路线以导航结果为准。</p><div class="links">${link(route(d),'打开当日路线')}${link(search(d.points[0][0]+' Norway'),'打开所选地点')}</div>${d.id==='0927'?`<div class="links">${link('https://www.google.com/maps/dir/?api=1&origin=Hotell+Bondeheimen+Oslo&destination=TORP+Sandefjord+Airport&travelmode=transit','奥斯陆酒店 → TRF 公共交通')}${link('https://torp.no/en/to-and-from/train/','Torp 官方接驳说明')}</div>`:''}</div></details></div></article>`).join('');
+document.querySelector('#days-nav').innerHTML=DAYS.map(d=>`<a href="#day-${d.id}">${d.date}</a>`).join('');document.querySelector('#days').innerHTML=DAYS.map(d=>`<article class="day" id="day-${d.id}"><div class="day-head"><div class="date-box"><strong>${d.date}</strong><small>${d.week}</small></div><div><h2>${d.title}</h2><p class="subtitle">${d.sub}</p></div></div><div class="day-body"><div class="columns"><section><h3>主要行程安排</h3><ul class="timeline"><div data-plan="${d.id}"></div></ul></section><section><h3 class="section-title">重点打卡清单 <span class="day-count" data-count="${d.id}"></span></h3><div data-list="${d.id}"></div><button class="add-item" type="button" data-add="${d.id}">＋ 添加打卡</button></section></div><section class="advice"><h3>具体细项与建议</h3>${d.tips.map(t=>`<p><strong>${t[0]}：</strong>${t[1]}</p>`).join('')}</section>${d.hotel?hotel(d.hotel):''}<details class="map-panel" data-map="${d.id}"><summary>查看当日真实地图与路线</summary><div class="map-inner"><label for="map-${d.id}">地图地点</label><select id="map-${d.id}" data-map-select="${d.id}">${d.points.map((p,i)=>`<option value="${i}">${p[0]}</option>`).join('')}</select><div class="map-canvas"></div><p class="map-note">可缩放、拖动的 OpenStreetMap 实际底图。地点标记为概略位置，路线以导航结果为准。</p><div class="links">${link(route(d),'打开当日路线')}${link(search(d.points[0][0]+' Norway'),'打开所选地点')}</div>${d.id==='0927'?`<div class="links">${link('https://www.google.com/maps/dir/?api=1&origin=Hotell+Bondeheimen+Oslo&destination=TORP+Sandefjord+Airport&travelmode=transit','奥斯陆酒店 → TRF 公共交通')}${link('https://torp.no/en/to-and-from/train/','Torp 官方接驳说明')}</div>`:''}</div></details></div></article>`).join('');
 function renderList(day){document.querySelector(`[data-list="${day}"]`).innerHTML=lists[day].length?lists[day].map(x=>check(x,day)).join(''):'<p class="empty">这一天还没有打卡项目，点击下方添加。</p>'}
-function save(){try{localStorage.setItem(KEY,JSON.stringify(state));localStorage.setItem(LISTKEY,JSON.stringify(lists));storageOK=true}catch{storageOK=false}update()}
-function update(){const all=allItems(),done=all.filter(x=>state[x.id]);document.querySelector('#top-count').textContent=done.length+'/'+all.length;document.querySelectorAll('[data-count]').forEach(el=>{const items=lists[el.dataset.count];el.textContent=items.filter(x=>state[x.id]).length+'/'+items.length});document.querySelectorAll('[data-check]').forEach(el=>{el.checked=!!state[el.dataset.check];el.closest('.check-row').classList.toggle('is-done',el.checked)});document.querySelector('#storage-note').textContent=storageOK?'清单内容和打卡状态自动保存在当前浏览器；刷新后保留，不跨设备同步。可选项目可按需要删除。':'当前浏览器无法保存记录；本次修改仅在当前页面有效。'}
-const dialog=document.querySelector('#item-dialog'),textInput=document.querySelector('#item-text');let editing=null;function openEditor(day,id=null){editing={day,id};document.querySelector('#dialog-title').textContent=id?'编辑打卡':'添加打卡 · '+DAYS.find(d=>d.id===day).date;textInput.value=id?lists[day].find(x=>x.id===id).text:'';document.querySelector('#edit-error').textContent='';dialog.showModal();textInput.focus()}document.querySelector('#cancel-edit').addEventListener('click',()=>dialog.close());document.querySelector('#item-form').addEventListener('submit',e=>{e.preventDefault();const text=textInput.value.trim();if(!text){document.querySelector('#edit-error').textContent='请填写打卡内容。';textInput.focus();return}const {day,id}=editing;if(id){lists[day].find(x=>x.id===id).text=text}else{lists[day].push({id:day+'-custom-'+(globalThis.crypto?.randomUUID?.() || Date.now().toString(36)+'-'+Math.random().toString(36).slice(2)),text})}renderList(day);save();dialog.close()});document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.add)openEditor(b.dataset.add);if(b.dataset.edit)openEditor(b.dataset.day,b.dataset.edit);if(b.dataset.delete){const day=b.dataset.day,id=b.dataset.delete;lists[day]=lists[day].filter(x=>x.id!==id);delete state[id];renderList(day);save()}});
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state));localStorage.setItem(LISTKEY,JSON.stringify(lists));storageOK=true}catch{storageOK=false}update();if(typeof __syncPush==='function')__syncPush()}
+function update(){const all=allItems(),done=all.filter(x=>state[x.id]);document.querySelector('#top-count').textContent=done.length+'/'+all.length;document.querySelectorAll('[data-count]').forEach(el=>{const items=lists[el.dataset.count];el.textContent=items.filter(x=>state[x.id]).length+'/'+items.length});document.querySelectorAll('[data-check]').forEach(el=>{el.checked=!!state[el.dataset.check];el.closest('.check-row').classList.toggle('is-done',el.checked)});document.querySelector('#storage-note').textContent=(storageOK?'清单、行程和打卡在本机保存，并自动跨设备同步。':'当前浏览器无法保存记录；本次修改仅在当前页面有效。')+(typeof __syncStatus==='function'?__syncStatus():'');if(typeof __afterUpdate==='function')__afterUpdate()}
+const dialog=document.querySelector('#item-dialog'),textInput=document.querySelector('#item-text');let editing=null;function openEditor(day,id=null){editing={day,id};document.querySelector('#dialog-title').textContent=id?'编辑打卡':'添加打卡 · '+DAYS.find(d=>d.id===day).date;textInput.value=id?lists[day].find(x=>x.id===id).text:'';document.querySelector('#edit-error').textContent='';dialog.showModal();textInput.focus()}document.querySelector('#cancel-edit').addEventListener('click',()=>dialog.close());document.querySelector('#item-form').addEventListener('submit',e=>{e.preventDefault();if(window.__planEditing)return;const text=textInput.value.trim();if(!text){document.querySelector('#edit-error').textContent='请填写打卡内容。';textInput.focus();return}const {day,id}=editing;if(id){lists[day].find(x=>x.id===id).text=text}else{lists[day].push({id:day+'-custom-'+(globalThis.crypto?.randomUUID?.() || Date.now().toString(36)+'-'+Math.random().toString(36).slice(2)),text})}renderList(day);save();dialog.close()});document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.add)openEditor(b.dataset.add);if(b.dataset.edit)openEditor(b.dataset.day,b.dataset.edit);if(b.dataset.delete){const day=b.dataset.day,id=b.dataset.delete;lists[day]=lists[day].filter(x=>x.id!==id);delete state[id];if(typeof __recordDel==='function')__recordDel(day,id);renderList(day);save()}});
 window.__loadLeaflet=(()=>{const urls=['https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js','https://unpkg.com/leaflet@1.9.4/dist/leaflet.js','https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js'];let i=0;return function load(){return new Promise((res,rej)=>{if(window.L)return res();if(i>=urls.length)return rej(new Error('map lib unavailable'));const s=document.createElement('script');s.src=urls[i++];s.onload=()=>window.L?res():load().then(res,rej);s.onerror=()=>load().then(res,rej);document.head.appendChild(s)})}})();
-document.addEventListener('change',e=>{if(e.target.matches('[data-check]')){state[e.target.dataset.check]=e.target.checked;save()}if(e.target.matches('[data-map-select]'))__loadLeaflet().then(()=>loadMap(e.target.dataset.mapSelect,Number(e.target.value))).catch(()=>{})});const maps={};function loadMap(id,n=0){const d=DAYS.find(x=>x.id===id),p=d.points[n],el=document.querySelector(`[data-map="${id}"]`),box=el.querySelector('.map-canvas');let m=maps[id];if(!m){m=maps[id]=L.map(box,{scrollWheelZoom:false});L.tileLayer('https://tile.osm.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap 贡献者'}).addTo(m);m._mk=L.marker([p[1],p[2]]).addTo(m)}else m._mk.setLatLng([p[1],p[2]]);m.setView([p[1],p[2]],13);el.querySelectorAll('.links a')[1].href=search(p[0]+(id==='0925'||id==='1007'?'':' Norway'))}document.querySelectorAll('[data-map]').forEach(el=>el.addEventListener('toggle',()=>{if(!el.open)return;const sel=el.querySelector('select'),idx=sel?Number(sel.value):0;__loadLeaflet().then(()=>{loadMap(el.dataset.map,idx);setTimeout(()=>{const m=maps[el.dataset.map];if(m)m.invalidateSize()},560)}).catch(()=>{el.querySelector('.map-note').textContent='地图组件加载失败，请联网后重试，或使用下方链接在浏览器中打开地图。'})}));for(const d of DAYS)renderList(d.id);update();window.addEventListener('storage',e=>{if(e.key===KEY||e.key===LISTKEY){try{const s=JSON.parse(localStorage.getItem(KEY)||'{}'),l=JSON.parse(localStorage.getItem(LISTKEY)||'{}');if(s&&typeof s==='object')state=s;for(const d of DAYS)if(Array.isArray(l[d.id]))lists[d.id]=l[d.id];for(const d of DAYS)renderList(d.id);update()}catch{}}});const obs=new IntersectionObserver(entries=>{for(const e of entries)if(e.isIntersecting){document.querySelectorAll('#days-nav a').forEach(a=>a.classList.toggle('active',a.hash==='#'+e.target.id))}},{rootMargin:'-130px 0px -65% 0px'});document.querySelectorAll('.day').forEach(el=>obs.observe(el));document.querySelector('#photo').innerHTML='<img src="data:image/jpeg;base64,'+window.PHOTO_B64+'" alt="挪威峡湾：云雾中的山峦、湖畔草地与红顶木屋" width="1600" height="900">';document.querySelector('#photo-credit').innerHTML='照片：'+link('https://commons.wikimedia.org/wiki/File:Hamn%C3%B8y.jpg','Hamnøy · Jon Olav Eikenes')+' · '+link('https://creativecommons.org/licenses/by/2.0/','CC BY 2.0')+'，按版面裁切。';
+document.addEventListener('change',e=>{if(e.target.matches('[data-check]')){state[e.target.dataset.check]=e.target.checked;save()}if(e.target.matches('[data-map-select]'))__loadLeaflet().then(()=>loadMap(e.target.dataset.mapSelect,Number(e.target.value))).catch(()=>{})});const maps={};function loadMap(id,n=0){const d=DAYS.find(x=>x.id===id),p=d.points[n],el=document.querySelector(`[data-map="${id}"]`),box=el.querySelector('.map-canvas');let m=maps[id];if(!m){m=maps[id]=L.map(box,{scrollWheelZoom:false});L.tileLayer('https://tile.osm.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap 贡献者'}).addTo(m);m._mk=L.marker([p[1],p[2]]).addTo(m)}else m._mk.setLatLng([p[1],p[2]]);m.setView([p[1],p[2]],13);el.querySelectorAll('.links a')[1].href=search(p[0]+(id==='0925'||id==='1007'?'':' Norway'))}document.querySelectorAll('[data-map]').forEach(el=>el.addEventListener('toggle',()=>{if(!el.open)return;const sel=el.querySelector('select'),idx=sel?Number(sel.value):0;__loadLeaflet().then(()=>{loadMap(el.dataset.map,idx);setTimeout(()=>{const m=maps[el.dataset.map];if(m)m.invalidateSize()},560)}).catch(()=>{el.querySelector('.map-note').textContent='地图组件加载失败，请联网后重试，或使用下方链接在浏览器中打开地图。'})}));for(const d of DAYS){renderList(d.id);if(typeof renderPlan==='function')renderPlan(d.id)}update();window.addEventListener('storage',e=>{if(e.key===KEY||e.key===LISTKEY){try{const s=JSON.parse(localStorage.getItem(KEY)||'{}'),l=JSON.parse(localStorage.getItem(LISTKEY)||'{}');if(s&&typeof s==='object')state=s;for(const d of DAYS)if(Array.isArray(l[d.id]))lists[d.id]=l[d.id];for(const d of DAYS)renderList(d.id);update()}catch{}}});const obs=new IntersectionObserver(entries=>{for(const e of entries)if(e.isIntersecting){document.querySelectorAll('#days-nav a').forEach(a=>a.classList.toggle('active',a.hash==='#'+e.target.id))}},{rootMargin:'-130px 0px -65% 0px'});document.querySelectorAll('.day').forEach(el=>obs.observe(el));document.querySelector('#photo').innerHTML='<img src="data:image/jpeg;base64,'+window.PHOTO_B64+'" alt="挪威峡湾：云雾中的山峦、湖畔草地与红顶木屋" width="1600" height="900">';document.querySelector('#photo-credit').innerHTML='照片：'+link('https://commons.wikimedia.org/wiki/File:Hamn%C3%B8y.jpg','Hamnøy · Jon Olav Eikenes')+' · '+link('https://creativecommons.org/licenses/by/2.0/','CC BY 2.0')+'，按版面裁切。';
 if(document.modelContext?.registerTool){const lifecycle=new AbortController();const specs=[{name:'list_trip_checkins',description:'读取当前每日打卡项目及完成状态',inputSchema:{type:'object',properties:{},additionalProperties:false},annotations:{readOnlyHint:true},execute:()=>allItems().map(x=>({...x,done:!!state[x.id]}))},{name:'set_trip_checkins',description:'批量设置现有打卡完成状态，并保存到当前浏览器',inputSchema:{type:'object',properties:{updates:{type:'array',items:{type:'object',properties:{id:{type:'string'},done:{type:'boolean'}},required:['id','done'],additionalProperties:false}}},required:['updates'],additionalProperties:false},annotations:{readOnlyHint:false},execute:input=>{if(!input||!Array.isArray(input.updates)||input.updates.some(x=>!x||typeof x.done!=='boolean'||!allItems().some(a=>a.id===x.id)))throw new Error('无效的打卡项目或状态');for(const x of input.updates)state[x.id]=x.done;save();return{updated:input.updates.length,saved:storageOK}}}];for(const t of specs){try{Promise.resolve(document.modelContext.registerTool(t,{signal:lifecycle.signal})).catch(()=>{})}catch{}}window.addEventListener('pagehide',()=>lifecycle.abort(),{once:true})}
 </script><script>
 (()=>{document.body.classList.add('js');
@@ -212,4 +304,116 @@ if(calm||!('IntersectionObserver' in window)){targets.forEach(el=>el.classList.a
 else{const io=new IntersectionObserver(es=>{for(const e of es)if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}},{rootMargin:'0px 0px -5% 0px',threshold:.05});targets.forEach(el=>io.observe(el))}
 if(fine&&!calm){document.body.classList.add('has-cursor');const d=document.createElement('div');d.id='cur-dot';const r=document.createElement('div');r.id='cur-ring';document.body.append(d,r);let mx=innerWidth/2,my=innerHeight/2,dx=mx,dy=my,rx=mx,ry=my,hot=false;addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;if(!d.classList.contains('on')){d.classList.add('on');r.classList.add('on')}},{passive:true});addEventListener('mouseover',e=>{hot=!!(e.target.closest&&e.target.closest('a,button,summary,select,label.check'))});(function loop(){dx+=(mx-dx)*.42;dy+=(my-dy)*.42;rx+=(mx-rx)*.15;ry+=(my-ry)*.15;d.style.transform='translate3d('+dx+'px,'+dy+'px,0) translate(-50%,-50%)';r.style.transform='translate3d('+rx+'px,'+ry+'px,0) translate(-50%,-50%) scale('+(hot?1.7:1)+')';r.style.borderColor=hot?'var(--accent)':'var(--ink-3)';requestAnimationFrame(loop)})()}
 })();
-</script></body></html>
+</script><script>
+/* ===== 栏目切换 ===== */
+(()=>{const panel=document.getElementById('tab-panel'),tog=document.getElementById('tab-toggle'),btns=[...panel.querySelectorAll('button[data-tab]')];
+let cur='trip',timer=null;
+function showTab(name){cur=name;document.getElementById('view-trip').hidden=name!=='trip';document.getElementById('view-lang').hidden=name!=='lang';document.getElementById('view-docs').hidden=name!=='docs';btns.forEach(b=>b.classList.toggle('active',b.dataset.tab===name));if(name==='docs')renderDocs();window.scrollTo({top:0})}
+function closePanel(){panel.hidden=true;document.body.classList.remove('tab-open');tog.setAttribute('aria-expanded','false');clearTimeout(timer);timer=null}
+function openPanel(){panel.hidden=false;document.body.classList.add('tab-open');tog.setAttribute('aria-expanded','true');clearTimeout(timer);timer=setTimeout(()=>{closePanel();if(cur!=='trip')showTab('trip')},5000)}
+tog.addEventListener('click',()=>{panel.hidden?openPanel():closePanel()});
+btns.forEach(b=>b.addEventListener('click',()=>{clearTimeout(timer);timer=null;showTab(b.dataset.tab);closePanel()}));
+panel.addEventListener('click',()=>{clearTimeout(timer);timer=setTimeout(()=>{closePanel();if(cur!=='trip')showTab('trip')},5000)});
+window.__showTab=showTab;
+if(location.hash==='#tab-lang'||location.hash==='#tab-docs')showTab(location.hash.slice(5));
+})();
+
+/* ===== 常用：音频与翻译 ===== */
+(()=>{const a=document.getElementById('lang-audio');if(a&&window.LANG_AUDIO_B64)a.src='data:audio/mpeg;base64,'+window.LANG_AUDIO_B64;
+const inp=document.getElementById('tr-in'),out=document.getElementById('tr-out'),go=document.getElementById('tr-go'),gl=document.getElementById('tr-google');
+const hasCJK=s=>/[぀-ヿ㐀-鿿]/.test(s);
+async function tr(){const q=inp.value.trim();if(!q){out.innerHTML='';return}out.textContent='翻译中…';
+ const pair=hasCJK(q)?'zh-CN|no':'no|zh-CN';
+ try{const r=await fetch('https://api.mymemory.translated.net/get?q='+encodeURIComponent(q)+'&langpair='+encodeURIComponent(pair));const d=await r.json();const t=d&&d.responseData&&d.responseData.translatedText;
+  if(t){out.innerHTML='';out.append(t);const s=document.createElement('span');s.className='sub';s.textContent='（'+(pair.startsWith('zh')?'挪威语':'中文')+'结果，由 MyMemory 提供）';out.append(s)}
+  else out.textContent='翻译失败，请用下方谷歌翻译。'}catch(e){out.textContent='网络翻译不可用，请用下方谷歌翻译。'}
+ gl.href='https://translate.google.com/?sl=auto&tl='+(hasCJK(q)?'no':'zh-CN')+'&text='+encodeURIComponent(q)+'&op=translate'}
+go.addEventListener('click',tr);inp.addEventListener('keydown',e=>{if(e.key==='Enter')tr()});
+})();
+
+/* ===== 证照：表格生成 ===== */
+function renderDocs(){const F=document.getElementById('docs-flights');if(F.dataset.done)return;F.dataset.done='1';
+const esc2=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const flights=[['9.25 周五','上海虹桥 → 北京首都','HU7608 · 19:00—21:15','国内中转，行李见当日提示'],['9.26 周六','北京首都 → 奥斯陆','HU769 · 03:10—06:45','抵达后进城入住'],['9.27 周日','奥斯陆 Torp → 斯塔万格','15:15 起飞','航班号以机票为准；落地取车'],['9.29 周二','斯塔万格 → 卑尔根','14:25—15:05','提前去机场还车'],['10.1 周四','卑尔根 → 埃沃内斯 EVE','12:55—16:40','含中转，以机票为准；落地取车'],['10.5 周一','埃沃内斯 → 奥斯陆','17:50—19:00','白天还车后飞回'],['10.6 周二','奥斯陆 → 北京','HU770 · 13:30 起飞','次日 04:30 抵达北京'],['10.7 周三','北京 → 上海虹桥','HU7601 · 07:45—10:00','入境后重新托运']];
+F.innerHTML='<tr><th>日期</th><th>行程</th><th>时间 / 航班</th><th>备注</th></tr>'+flights.map(f=>'<tr><td class="mono">'+esc2(f[0])+'</td><td>'+esc2(f[1])+'</td><td class="mono">'+esc2(f[2])+'</td><td>'+esc2(f[3])+'</td></tr>').join('');
+const H=document.getElementById('docs-hotels');
+const rows=[['9.26—9.27','oslo'],['9.27—9.28','base'],['9.28—9.29','stavanger'],['9.29—10.1','bergen'],['10.1—10.2','nyvagar'],['10.2—10.3','hennings'],['10.3—10.5','eliassen'],['10.5—10.6','airport']];
+H.innerHTML='<tr><th>入住日期</th><th>酒店</th><th>地址</th><th>确认号</th><th>电话</th></tr>'+rows.map(r=>{const h=HOTELS[r[1]];return '<tr><td class="mono">'+r[0]+'</td><td>'+esc2(h.name)+'</td><td>'+esc2(h.address)+'</td><td class="mono">'+esc2(h.conf)+'</td><td class="mono">'+esc2(h.phone)+'</td></tr>'}).join('')}
+
+/* ===== 日程安排：可编辑增删 ===== */
+let planEdits={};
+try{planEdits=JSON.parse(localStorage.getItem('norway-2026-plan-v1')||'{}')}catch(e){planEdits={}}
+function planItems(day){const d=DAYS.find(x=>x.id===day),e=planEdits[day]||{del:[],add:[]};
+const tpl=d.plan.map((p,i)=>({p:p,i:i})).filter(x=>!e.del.includes(x.i)).map(x=>({key:'t'+x.i,t:x.p[0],txt:x.p[1],flight:!!x.p[2]}));
+return tpl.concat((e.add||[]).map(a=>({key:a.id,t:a.t,txt:a.txt,flight:false})))}
+window.renderPlan=function(day){const el=document.querySelector('[data-plan="'+day+'"]');if(!el)return;
+const items=planItems(day);
+el.innerHTML='<ul class="timeline">'+items.map(it=>'<li class="'+(it.flight?'flight':'')+'"><time>'+esc(it.t||'—')+'</time><p>'+esc(it.txt)+'</p><div class="item-actions"><button type="button" data-plan-edit="'+day+'|'+esc(it.key)+'">编辑</button><button type="button" data-plan-del="'+day+'|'+esc(it.key)+'">删除</button></div></li>').join('')+'</ul><button class="add-item" type="button" data-plan-add="'+day+'">＋ 添加行程</button>'};
+function savePlanEdits(){try{localStorage.setItem('norway-2026-plan-v1',JSON.stringify(planEdits))}catch(e){}if(typeof save==='function')save()}
+const pdialog=()=>document.getElementById('item-dialog');
+function planEditor(day,key){window.__planEditing={day,key};const dlg=pdialog();
+document.getElementById('dialog-title').textContent=key?'编辑行程 · '+DAYS.find(d=>d.id===day).date:'添加行程 · '+DAYS.find(d=>d.id===day).date;
+document.querySelector('#item-dialog label[for="item-text"]').textContent='行程内容';
+document.getElementById('item-time-label').hidden=false;
+const ti=document.getElementById('item-text'),tm=document.getElementById('item-time');
+const it=key&&key[0]==='t'?DAYS.find(d=>d.id===day).plan[Number(key.slice(1))]:(planEdits[day]&&planEdits[day].add.find(a=>a.id===key));
+ti.value=it?(key[0]==='t'?it[1]:it.txt):'';tm.value=it?(key[0]==='t'?it[0]:(it.t||'')):'';
+document.getElementById('edit-error').textContent='';tm.hidden=false;dlg.showModal();ti.focus()}
+document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
+if(b.dataset.planAdd){planEditor(b.dataset.planAdd,null);return}
+if(b.dataset.planEdit){planEditor(...b.dataset.planEdit.split('|'));return}
+if(b.dataset.planDel){const[day,key]=b.dataset.planDel.split('|'),e2=planEdits[day]||(planEdits[day]={del:[],add:[]});
+ if(key[0]==='t'){const i=Number(key.slice(1));if(!e2.del.includes(i))e2.del.push(i)}else e2.add=e2.add.filter(a=>a.id!==key);
+ renderPlan(day);savePlanEdits();return}});
+document.getElementById('item-form').addEventListener('submit',()=>{if(!window.__planEditing)return;const{day,key}=window.__planEditing;
+const txt=document.getElementById('item-text').value.trim(),t=document.getElementById('item-time').value.trim();
+if(!txt){document.getElementById('edit-error').textContent='请填写行程内容。';return}
+const e2=planEdits[day]||(planEdits[day]={del:[],add:[]});
+if(key&&key[0]==='t'){const i=Number(key.slice(1));if(!e2.del.includes(i))e2.del.push(i);
+ e2.add.push({id:day+'-p-'+(crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)),t:t,txt:txt})}
+else if(key){const a=e2.add.find(x=>x.id===key);if(a){a.txt=txt;a.t=t}}
+else e2.add.push({id:day+'-p-'+(crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)),t:t,txt:txt});
+window.__planEditing=null;document.getElementById('item-time').hidden=true;document.getElementById('item-time-label').hidden=true;
+document.querySelector('#item-dialog label[for="item-text"]').textContent='打卡内容';
+renderPlan(day);savePlanEdits();pdialog().close()});
+document.getElementById('cancel-edit').addEventListener('click',()=>{window.__planEditing=null;document.getElementById('item-time').hidden=true;document.getElementById('item-time-label').hidden=true;document.querySelector('#item-dialog label[for="item-text"]').textContent='打卡内容'});
+
+for(const d of DAYS)renderPlan(d.id);
+/* ===== 跨设备同步（ntfy 匿名主题，数据为非敏感行程文本） ===== */
+const NTFY='https://ntfy.sh/dolphin-norway-2026-ljf';
+let delDefaults={},syncState={chk:{},items:{},del:{},plan:{}},lastSync=0,pushTimer=null;
+try{delDefaults=JSON.parse(localStorage.getItem('norway-2026-del-v1')||'{}')}catch(e){}
+window.__recordDel=(day,id)=>{(delDefaults[day]=delDefaults[day]||[]).push(id);try{localStorage.setItem('norway-2026-del-v1',JSON.stringify(delDefaults))}catch(e){}};
+function collectSync(){const s={v:3,upd:Date.now(),chk:{},items:{},del:{},plan:planEdits};
+for(const d of DAYS){s.items[d.id]=lists[d.id].filter(x=>x.id.indexOf('-custom-')>-1).map(x=>({id:x.id,text:x.text}));
+s.del[d.id]=delDefaults[d.id]||[];
+for(const x of lists[d.id])if(state[x.id])s.chk[x.id]=1}
+return s}
+function applySync(s,remote){if(!s||s.v!==3)return false;let changed=false;
+for(const d of DAYS){const rs=s.items[d.id]||[],ls=lists[d.id]||[];
+const customs=ls.filter(x=>x.id.indexOf('-custom-')>-1);
+for(const r of rs){const ex=customs.find(x=>x.id===r.id);if(!ex){customs.push({id:r.id,text:r.text});changed=true}else if(ex.text!==r.text&&remote){ex.text=r.text;changed=true}}
+const dels=new Set([...(delDefaults[d.id]||[]),...(s.del[d.id]||[])]);
+if((s.del[d.id]||[]).length>(delDefaults[d.id]||[]).length){delDefaults[d.id]=[...dels];changed=true}
+const base=DAYS.find(x=>x.id===d.id).checks.map((text,i)=>({id:d.id+'-'+i,text})).filter(x=>!dels.has(x.id));
+lists[d.id]=base.concat(customs)}
+for(const k in s.chk)if(state[k]!==!!s.chk[k]){state[k]=!!s.chk[k];changed=true}
+for(const day in s.plan){const pe=planEdits[day]||(planEdits[day]={del:[],add:[]});const rp=s.plan[day];
+for(const i of (rp.del||[]))if(!pe.del.includes(i)){pe.del.push(i);changed=true}
+for(const a of (rp.add||[])){const ex=pe.add.find(x=>x.id===a.id);if(!ex){pe.add.push({id:a.id,t:a.t,txt:a.txt});changed=true}else if(remote&&(ex.txt!==a.txt||ex.t!==a.t)){ex.txt=a.txt;ex.t=a.t;changed=true}}}
+return changed}
+window.__syncPush=function(){clearTimeout(pushTimer);pushTimer=setTimeout(()=>{const s=collectSync();
+fetch(NTFY,{method:'POST',body:JSON.stringify(s)}).then(()=>{lastSync=Date.now();if(typeof update==='function')update()}).catch(()=>{if(typeof update==='function')update()})},800)};
+window.__syncStatus=()=>lastSync?'（最近同步 '+new Date(lastSync).getHours()+':'+String(new Date(lastSync).getMinutes()).padStart(2,'0')+'）':'（同步初始化中…）';
+async function poll(){try{const r=await fetch(NTFY+'/json?poll=1');const arr=await r.json();let best=null;
+for(const m of arr){try{const s=JSON.parse(m.message);if(s&&s.v===3&&(!best||s.upd>best.upd))best=s}catch(e){}}
+if(best&&best.upd>lastApplied){const changed=applySync(best,true);lastApplied=best.upd;lastSync=Date.now();
+try{localStorage.setItem(KEY,JSON.stringify(state));localStorage.setItem(LISTKEY,JSON.stringify(lists));localStorage.setItem('norway-2026-plan-v1',JSON.stringify(planEdits));localStorage.setItem('norway-2026-del-v1',JSON.stringify(delDefaults))}catch(e){}
+for(const d of DAYS){renderList(d.id);renderPlan(d.id)}update()}
+}catch(e){}}
+let lastApplied=0;
+window.__afterUpdate=()=>{};
+setTimeout(()=>{poll();setInterval(poll,60000)},1500);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)poll()});
+</script>
+</body></html>
