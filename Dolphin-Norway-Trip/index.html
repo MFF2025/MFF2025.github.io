@@ -156,7 +156,7 @@ body.tab-open #tab-toggle em{transform:rotate(90deg)}
 table.phrase{width:100%;border-collapse:collapse;font-size:14.5px}
 table.phrase th{font-size:12px;letter-spacing:2px;color:var(--ink-2);text-align:left;border-bottom:1px solid var(--line-strong);padding:6px 8px;font-weight:650}
 table.phrase td{border-bottom:1px solid var(--line);padding:9px 8px;vertical-align:top}
-table.phrase td.no{font-weight:600}
+table.phrase td.no{font-weight:600;overflow-wrap:anywhere}
 table.phrase td.ipa{font-family:var(--mono);font-size:12.5px;color:var(--ink-2);overflow-wrap:anywhere}
 table.phrase td.ym{font-size:13px;color:var(--ink-2)}
 table.doc{width:100%;border-collapse:collapse;font-size:14px}
@@ -210,9 +210,10 @@ body.js .rv.in{opacity:1;transform:none}
 .tips strong{color:var(--ink);font-family:var(--mono);font-size:12.5px;letter-spacing:1.5px;margin-right:10px}
 .source-note{font-size:12.5px;color:var(--ink-3);margin-top:16px}
 @media(max-width:900px){.intro{grid-template-columns:1fr;gap:20px;padding:44px 0 32px}.columns{grid-template-columns:1fr;gap:0}}
-@media(max-width:700px){main{padding:0 16px}.top{padding:0 16px}h1{font-size:34px;letter-spacing:2px}#photo img{height:160px}.day-head{padding:20px 16px;gap:14px;align-items:flex-start}.day-head h2{font-size:21px}.date-box{padding:8px 12px}.date-box strong{font-size:22px}.day-body{padding:0 16px 22px}.tl-grid{grid-template-columns:92px 1fr;gap:8px}.timeline time{font-size:11.5px}.links a{padding:9px 12px}.day{margin:26px 0}.hotel{padding:16px}.map-canvas{height:240px}}
+@media(max-width:700px){main{padding:0 16px}
+.intro h1{font-size:30px;line-height:1.35;text-wrap:balance}.top{padding:0 16px}h1{font-size:34px;letter-spacing:2px}#photo img{height:160px}.day-head{padding:20px 16px;gap:14px;align-items:flex-start}.day-head h2{font-size:21px}.date-box{padding:8px 12px}.date-box strong{font-size:22px}.day-body{padding:0 16px 22px}.tl-grid{grid-template-columns:92px 1fr;gap:8px}.timeline time{font-size:11.5px}.links a{padding:9px 12px}.day{margin:26px 0}.hotel{padding:16px}.map-canvas{height:240px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}body.js .rv,body.js .intro [data-hero]{opacity:1;transform:none;transition:none}.map-inner{transition:none}}
-@media(max-width:640px){.sheet{padding:16px 14px;margin:14px 0}
+@media(max-width:760px){.sheet{padding:16px 14px;margin:14px 0}
 table.phrase{font-size:13.5px}
 table.phrase thead,table.phrase tr:first-child{display:none}
 table.phrase tbody,table.phrase tr,table.phrase td{display:block;width:100%;box-sizing:border-box}
@@ -220,7 +221,7 @@ table.phrase tr{border-bottom:1px solid var(--line);padding:10px 2px}
 table.phrase td{border-bottom:0;padding:2px 0}
 table.phrase td:nth-child(1){font-weight:650;font-size:14px}
 table.phrase td.no{font-size:15px;margin:3px 0}
-table.phrase td.ipa,table.phrase td.ym{display:inline-block;width:auto;margin-right:12px;overflow-wrap:normal}
+table.phrase td.ipa,table.phrase td.ym{display:inline-block;width:auto;margin-right:12px;max-width:100%;overflow-wrap:anywhere}
 table.phrase td.ipa::before{content:'音标 ';color:var(--ink-3);font-family:var(--sans)}
 table.phrase td.ym::before{content:'谐音 ';color:var(--ink-3)}
 table.doc{font-size:13.5px}
@@ -337,7 +338,24 @@ const DAYS=[
 {id:'1006',date:'10.6',week:'周二',title:'早餐之后，启程回家',sub:'奥斯陆 → 北京 · 夜航',hotel:null,route:['Best Western Plus Oslo Airport','Oslo Airport'],mode:'driving',points:[['机场酒店片区',60.187,11.069],['奥斯陆机场 OSL',60.1939,11.1004]],plan:[['早上','Best Western Plus 早餐'],['中午','退房，接驳去奥斯陆机场'],['13:30','HU770 · 奥斯陆 OSL 起飞，次日抵达北京','flight']],checks:['酒店早餐','完成值机与托运','搭乘 HU770 返回北京'],tips:[['返程日期','北京到达时间为 10/7 04:30，中国已是第二天。随身保留下一段登机所需证件。']]},
 {id:'1007',date:'10.7',week:'周三',title:'抵达上海，旅途收尾',sub:'北京 → 上海',hotel:null,route:['Beijing Capital Airport','Shanghai Hongqiao Airport'],mode:'transit',points:[['北京首都机场',40.0799,116.6031],['上海虹桥机场',31.1979,121.3363]],plan:[['04:30','HU770 抵达北京首都 T2。','flight'],['04:30—07:00','入境、取行李、海关、重新托运与安检。'],['07:45—10:00','HU7601 · 北京首都 T2 → 上海虹桥 T2','flight']],checks:['北京完成入境与重新托运','平安抵达上海'],tips:[['中转余量','PDF 标注北京行李不直挂，中转 3 小时 15 分钟，下机后优先完成转机流程。'],['完整行程','手写计划止于回北京，机票另含本段北京飞上海，已一并保留。']]}
 ];
-</script><script src="photo.js"></script><script src="lang-audio.js"></script><script>const KEY='norway-2026-checkins-v1',LISTKEY='norway-2026-lists-v1';let state={},lists={},storageOK=true;try{state=JSON.parse(localStorage.getItem(KEY)||'{}');lists=JSON.parse(localStorage.getItem(LISTKEY)||'{}');if(!state||typeof state!=='object'||Array.isArray(state))state={};if(!lists||typeof lists!=='object'||Array.isArray(lists))lists={}}catch{state={};lists={};storageOK=false}
+</script><script src="photo.js"></script><script src="lang-audio.js"></script><script src="lang-clips.js"></script>
+<script>
+/* 常用词发音（机器合成，Nora 挪威语音） */
+(()=>{const C=window.LANG_CLIPS||{};if(!Object.keys(C).length)return;
+const au=new Audio();let onB=null;
+document.querySelectorAll('table.phrase').forEach(t=>{
+if(t.querySelector('.say'))return;
+t.querySelectorAll('tr').forEach(tr=>{
+const td=tr.querySelector('td.no');if(!td)return;
+const b64=C[td.textContent.trim()];if(!b64)return;
+const btn=document.createElement('button');
+btn.type='button';btn.className='say';btn.setAttribute('aria-label','播放发音');btn.textContent='▶';
+btn.addEventListener('click',()=>{if(onB&&onB!==btn)onB.classList.remove('on');
+au.src='data:audio/mp4;base64,'+b64;
+au.onended=()=>{btn.classList.remove('on');if(onB===btn)onB=null};
+au.play().catch(()=>{});btn.classList.add('on');onB=btn});
+td.insertBefore(btn,td.firstChild)})})})();
+</script><script>const KEY='norway-2026-checkins-v1',LISTKEY='norway-2026-lists-v1';let state={},lists={},storageOK=true;try{state=JSON.parse(localStorage.getItem(KEY)||'{}');lists=JSON.parse(localStorage.getItem(LISTKEY)||'{}');if(!state||typeof state!=='object'||Array.isArray(state))state={};if(!lists||typeof lists!=='object'||Array.isArray(lists))lists={}}catch{state={};lists={};storageOK=false}
 for(const d of DAYS){if(!Array.isArray(lists[d.id]))lists[d.id]=d.checks.map((text,i)=>({id:d.id+'-'+i,text}));else lists[d.id]=lists[d.id].filter(x=>x&&typeof x.id==='string'&&typeof x.text==='string')}
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const link=(u,t)=>`<a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a>`;const search=q=>'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q);const route=d=>'https://www.google.com/maps/dir/?api=1&origin='+encodeURIComponent(d.route[0])+'&destination='+encodeURIComponent(d.route.at(-1))+'&travelmode='+d.mode+(d.route.length>2?'&waypoints='+encodeURIComponent(d.route.slice(1,-1).join('|')):'');const allItems=()=>DAYS.flatMap(d=>lists[d.id].map(x=>({...x,date:d.date,day:d.id})));
 function check(x,day){return `<div class="check-row ${state[x.id]?'is-done':''}"><div class="swipe"><div class="swipe-under"><button type="button" class="u-edit" data-edit="${esc(x.id)}" data-day="${day}">编辑</button><button type="button" class="u-del" data-delete="${esc(x.id)}" data-day="${day}">删除</button></div><div class="swipe-over"><label class="check"><input type="checkbox" data-check="${esc(x.id)}" ${state[x.id]?'checked':''}><span class="label-text">${esc(x.text)}</span></label></div></div></div>`}
